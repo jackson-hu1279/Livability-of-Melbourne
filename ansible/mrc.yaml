@@ -7,3 +7,11 @@
     - role: openstack-volume
     - role: openstack-security-group
     - role: openstack-instance
+
+- hosts: COMP90024
+  vars_files:
+    - host_vars/vars.yaml
+  gather_facts: true
+
+  roles:
+  - role: install-docker
