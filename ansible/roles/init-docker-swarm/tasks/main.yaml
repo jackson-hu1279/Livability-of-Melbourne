@@ -7,7 +7,25 @@
     enabled: yes
 
 - name: Initialise Docker Swarm
-  docker_swarm: 
+  community.docker.docker_swarm: 
     state: present
+    advertise_addr: eth0:2377
   register: output_swarm
   when: inventory_hostname in groups['COMP90024'][0]
+
+- name: Get join-token for manager nodes
+  set_fact:
+    join_token_manager: "{{ hostvars[groups['COMP90024'][0]].output_swarm.swarm_facts.JoinTokens.Manager }}"
+
+- name: Get join-token for worker nodes
+  set_fact:
+    join_token_worker: "{{ hostvars[groups['COMP90024'][0]].output_swarm.swarm_facts.JoinTokens.Worker }}"
+
+- name: Join worker nodes
+  community.docker.docker_swarm:
+    state: join
+    timeout: 60
+    join_token: "{{ join_token_worker }}"
+    advertise_addr: eth0:2377
+    remote_addrs: "{{ groups['COMP90024'][0] }}"
+  when: inventory_hostname in groups['COMP90024'] and inventory_hostname not in groups['COMP90024'][0]
