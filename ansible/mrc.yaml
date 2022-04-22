@@ -12,7 +12,9 @@
   vars_files:
     - host_vars/vars.yaml
   gather_facts: true
+  become: yes
 
   roles:
   - role: common
   - role: install-docker
+  - role: init-docker-swarm

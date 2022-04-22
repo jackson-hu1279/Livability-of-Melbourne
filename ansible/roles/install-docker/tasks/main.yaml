@@ -29,3 +29,9 @@
     name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
     state: latest
     update_cache: true
+
+- name: Install Docker SDK library for python
+  become: yes
+  ansible.builtin.pip:
+    name: 'docker'
+    state: latest

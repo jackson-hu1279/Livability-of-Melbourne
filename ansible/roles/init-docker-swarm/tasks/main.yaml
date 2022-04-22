@@ -1,0 +1,13 @@
+---
+# Initialise the Docker Swarm cluster
+- name: Start Docker engine
+  service: 
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Initialise Docker Swarm
+  docker_swarm: 
+    state: present
+  register: output_swarm
+  when: inventory_hostname in groups['COMP90024'][0]
