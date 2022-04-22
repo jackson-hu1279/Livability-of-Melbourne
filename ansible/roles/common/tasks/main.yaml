@@ -11,7 +11,7 @@
 - name: Install dependencies
   become: yes
   ansible.builtin.apt:
-    name: ['curl', 'git', 'python3-pip', 'vim']
+    name: ['curl', 'git', 'python3-pip', 'python3-setuptools', 'vim']
     state: latest
     update_cache: yes
 
@@ -19,4 +19,10 @@
   become: yes
   ansible.builtin.pip:
     name: 'pip'
+    state: latest
+
+- name: Install openstacksdk
+  become: yes
+  ansible.builtin.pip:
+    name: 'openstacksdk'
     state: latest
