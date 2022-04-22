@@ -14,4 +14,5 @@
   gather_facts: true
 
   roles:
+  - role: common
   - role: install-docker

@@ -1,12 +1,5 @@
 ---
-# Install Docker on instances
-- name: Update the existing list of packages
-  become: yes
-  ansible.builtin.apt:
-    update_cache: yes
-    force_apt_get: yes
-    cache_valid_time: 3600
-  
+# Install Docker on instances  
 - name: Install required system packages
   become: yes
   ansible.builtin.apt:
@@ -30,9 +23,9 @@
     repo: deb https://download.docker.com/linux/ubuntu focal stable
     state: present
 
-- name: Update apt and install docker-ce
+- name: Install docker
   become: yes
   ansible.builtin.apt:
-    name: docker-ce
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
     state: latest
     update_cache: true
