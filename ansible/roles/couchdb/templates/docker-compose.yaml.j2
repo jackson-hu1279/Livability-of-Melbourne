@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  couchdb:
+    image: ibmcom/couchdb3
+    deploy:
+      mode: global
+    environment:
+      NODENAME: "{{ ansible_host }}"
+      COUCHDB_USER: "{{ couchdb_user }}"
+      COUCHDB_PASSWORD: "{{ couchdb_pass }}"
+      COUCHDB_SECRET: "{{ couchdb_cookie }}"
+      ERL_FLAGS: "-setcookie {{ couchdb_cookie }} -name {{ ansible_host }}"
+    ports:
+      - "5984:5984"
+      - "9100:9100"
+      - "4369:4369"
+
