@@ -33,5 +33,5 @@
 - name: Install Docker SDK library for python
   become: yes
   ansible.builtin.pip:
-    name: ['docker', 'docker-compose']
+    name: ['docker', 'docker-compose', 'jsondiff']
     state: latest
