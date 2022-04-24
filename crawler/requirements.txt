@@ -1,0 +1,12 @@
+urllib3
+numpy
+pandas
+twarc
+tqdm
+tweepy
+nltk
+textblob
+couchdb
+geopandas
+shapely
+nltk
