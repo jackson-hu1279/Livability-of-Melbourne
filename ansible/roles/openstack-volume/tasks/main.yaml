@@ -1,6 +1,6 @@
 ---
-# Create volumes from vars
-- name: Create volume(s) on NeCTAR
+# Create volumes
+- name: Create volume(s) on MRC
   openstack.cloud.volume:
     display_name: '{{ item.vol_name }}'
     size: '{{ item.vol_size }}'

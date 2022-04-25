@@ -17,5 +17,4 @@
   roles:
   - role: common
   - role: install-docker
-  - role: init-docker-swarm
-  - role: couchdb
+  - role: init-couchdb

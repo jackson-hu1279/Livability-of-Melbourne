@@ -1,5 +1,6 @@
 ---
-db_dir: couchdb
+couchdb_container: couchdb
+couchdb_image: ibmcom/couchdb3
 couchdb_user: admin
 couchdb_pass: admin
 couchdb_cookie: a192aeb9904e6590849337933b000c99
