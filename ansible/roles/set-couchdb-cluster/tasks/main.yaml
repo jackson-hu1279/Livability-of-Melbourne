@@ -42,3 +42,4 @@
     body_format: json
     body: "{\"action\":\"finish_cluster\"}"
   run_once: true
+  ignore_errors: True
