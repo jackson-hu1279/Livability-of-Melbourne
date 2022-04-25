@@ -1,0 +1,44 @@
+---
+# Set up CouchDB cluster
+# Join together nodes
+- name: Start cluster setup
+  uri:
+    url: http://{{ groups['COMP90024'][0] }}:5984/_cluster_setup
+    method: POST
+    user: "{{ couchdb_user }}"
+    password: "{{ couchdb_pass }}"
+    force_basic_auth: yes
+    status_code: 200, 201
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ couchdb_user }}\", \"password\": \"{{ couchdb_pass }}\", \"port\": \"5984\", \"remote_node\": \"{{ inventory_hostname }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ couchdb_user }}\", \"remote_current_password\":\"{{ couchdb_pass }}\"}"
+  when: inventory_hostname in groups['COMP90024'] and inventory_hostname not in groups['COMP90024'][0]
+
+- name: Join other nodes
+  uri:
+    url: http://{{ groups['COMP90024'][0] }}:5984/_cluster_setup
+    method: POST
+    user: "{{ couchdb_user }}"
+    password: "{{ couchdb_pass }}"
+    force_basic_auth: yes
+    status_code: 200, 201
+    headers:
+      Content-Type: "application/json"
+    body_format: json
+    body: "{\"action\":\"add_node\",\"host\":\"{{ inventory_hostname }}\",\"port\":\"5984\",\"username\":\"{{ couchdb_user }}\",\"password\":\"{{ couchdb_pass }}\"}"
+  when: inventory_hostname in groups['COMP90024'] and inventory_hostname not in groups['COMP90024'][0]
+
+- name: Complete cluster setup
+  uri:
+    url: http://{{ groups['COMP90024'][0] }}:5984/_cluster_setup
+    method: POST
+    user: "{{ couchdb_user }}"
+    password: "{{ couchdb_pass }}"
+    force_basic_auth: yes
+    headers:
+      Content-Type: "application/json"
+    status_code: 200, 201
+    body_format: json
+    body: "{\"action\":\"finish_cluster\"}"
+  run_once: true

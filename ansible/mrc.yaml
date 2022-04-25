@@ -18,3 +18,4 @@
   - role: common
   - role: install-docker
   - role: init-couchdb
+  - role: set-couchdb-cluster
