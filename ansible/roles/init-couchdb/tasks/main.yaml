@@ -1,10 +1,4 @@
 ---
-- name: Format volumes
-  become: yes
-  filesystem:
-    fstype: xfs
-    dev: "/dev/vdb"
-
 # Initialise CouchDB in Docker
 - name: Stop CouchDB container if exist
   become: yes
@@ -28,6 +22,7 @@
       COUCHDB_PASSWORD: "{{ couchdb_pass }}"
       COUCHDB_SECRET: "{{ couchdb_cookie }}"
       ERL_FLAGS: "-setcookie \"{{ couchdb_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
-
+    volumes:
+      - /data
 
 

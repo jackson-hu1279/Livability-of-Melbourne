@@ -16,6 +16,7 @@
 
   roles:
   - role: common
+  - role: mount-volumes
   - role: install-docker
   - role: init-couchdb
   - role: set-couchdb-cluster
