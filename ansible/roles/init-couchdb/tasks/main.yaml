@@ -23,6 +23,5 @@
       COUCHDB_SECRET: "{{ couchdb_cookie }}"
       ERL_FLAGS: "-setcookie \"{{ couchdb_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
     volumes:
-      - /data
-
+      - "data:/opt/couchdb/data"
 
