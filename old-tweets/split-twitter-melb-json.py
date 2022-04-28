@@ -1,6 +1,6 @@
 import json 
 
-chunk_size = 100000
+chunk_size = 25000
 file_num = 0
 more = True
 
@@ -26,9 +26,8 @@ with open('twitter-melb.json', 'r', encoding = 'utf-8') as in_json_file:
                     more = False  
                 print(line, file=out_json_file, end = '')
             
-            # only 2.5 million tweets, extracted-26 is empty 
-            if file_num != 26:
-                print(']}', file=out_json_file)
+            # only 2.5 million tweets, the last extracted file will be empty 
+            print(']}', file=out_json_file)
 
 
 # with open('extracted.json', encoding='utf-8') as fp:
