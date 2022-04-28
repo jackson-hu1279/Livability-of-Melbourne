@@ -50,7 +50,6 @@ def crawler(query, tokens, tweets_each_turn, turns, file_name):
     Main function. Use query as filter, token for authocation, and number of tweets each turn
     Turns suggest how many turns this function will run
     Get tweets from Twitter
-    Remove tweets without geo
     Refrom tweets to dictionary type
     Save tweets as pickle file
     Automatically repeat this process.
