@@ -2,13 +2,13 @@
 # Initialise CouchDB in Docker
 - name: Stop CouchDB container if exist
   become: yes
-  docker_container:
-    name: couchdb
+  community.docker.docker_container:
+    name: "{{ couchdb_container}}"
     state: absent
 
-- name: Start Docker container
+- name: Initialise Docker container
   become: yes
-  docker_container:
+  community.docker.docker_container:
     name: "{{ couchdb_container}}"
     image: "{{ couchdb_image }}"
     state: started
@@ -22,6 +22,23 @@
       COUCHDB_PASSWORD: "{{ couchdb_pass }}"
       COUCHDB_SECRET: "{{ couchdb_cookie }}"
       ERL_FLAGS: "-setcookie \"{{ couchdb_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
-    volumes:
-      - "data:/opt/couchdb/data"
+
+# Ensure not overwrite the CouchDB config files
+- name: Copy CouchDB data to host
+  become: yes
+  ansible.builtin.command: "docker cp {{ couchdb_container }}:{{ couchdb_data_dir }} {{ host_data_volume }}"
+
+- name: Stop CouchDB container again
+  become: yes
+  community.docker.docker_container:
+    name: "{{ couchdb_container}}"
+    state: stopped
+
+- name: Run Docker container with volume mounted
+  become: yes
+  community.docker.docker_container:
+    name: "{{ couchdb_container}}"
+    state: started
+
+
 
