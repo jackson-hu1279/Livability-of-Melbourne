@@ -27,11 +27,22 @@ for i in range(0,92):
     if lga_name in GREATER_MELBOURNE_LGA_LIST:
         LGA_FEATURES_LIST.append(lga_features)
 
-print(LGA_FEATURES_LIST)
+# print(LGA_FEATURES_LIST)
 # checking that there are 31 features 
 print(len(LGA_FEATURES_LIST))
+print(LGA_FEATURES_LIST[0])
 
-# Remove LGAs not in Greater Melbourne 
+# note for this code: the geojson returned is missing the "type":"Feature"
+# field before "geometry", not sure why it is missing
+with open("greater-melbourne-lga.geojson", "w") as greater_melbourne_file:
+    print('{"type":"FeatureCollection, "features":[', file=greater_melbourne_file)
+    for item in LGA_FEATURES_LIST:
+        # this doesn't work, there is a key error because each item is a dictionary not a string
+        # convert to string? 
+        # print(item[0] + '"type":"Feature",' + item[1:], file=greater_melbourne_file)
+        print(item, file=greater_melbourne_file)
+    print("]}", file=greater_melbourne_file)
+
 
 
 # property_0 = gj["features"][0]["properties"]
