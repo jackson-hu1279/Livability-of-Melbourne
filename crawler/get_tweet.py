@@ -1,33 +1,33 @@
 import tweepy
 import pickle
 import time
+import couchdb3
 
 
+### definitions
 def reform_tweet(raw_tweet):
     """
     Reform the tweet data into a dictionary form.
     Each tweet is a dictionary contains: tweet_id, text, author_id, create_at, geo
     """
     tweet_dict = dict()
-    tweet_dict['tweet_id'] = raw_tweet.id
+    tweet_dict['_id'] = str(raw_tweet.id)
     tweet_dict['author_id'] = raw_tweet.author_id
     tweet_dict['text'] = raw_tweet.text
-    tweet_dict['created_at'] = raw_tweet.created_at
+    tweet_dict['created_at'] = str(raw_tweet.created_at)
     tweet_dict['geo'] = raw_tweet.geo
 
     return tweet_dict
 
 
-def preprocess(raw_tweet, id_set, tweet_list):
+def preprocess(raw_tweet, tweet_list):
     """
     Process all tweets in one turn, remove tweets withou geo info
     """
     for data in raw_tweet:
-      if(data.id not in id_set):  #remove duplicate
-        id_set.add(data.id)
         tweet_list.append(reform_tweet(data))
     
-    return tweet_list, id_set
+    return tweet_list
 
 
 def get_tweet_1(query, token, tweets_each_turn, next_page = None):
@@ -45,13 +45,13 @@ def get_tweet_1(query, token, tweets_each_turn, next_page = None):
     return tweets.data, tweets.meta['next_token']
 
 
-def crawler(query, tokens, tweets_each_turn, turns, file_name):
+def crawler(query, tokens, tweets_each_turn, turns, client, db_name):
     """
     Main function. Use query as filter, token for authocation, and number of tweets each turn
     Turns suggest how many turns this function will run
     Get tweets from Twitter
     Refrom tweets to dictionary type
-    Save tweets as pickle file
+    Save tweets to CouchDB
     Automatically repeat this process.
     For one token, speed limit is 900 tweets/15min(1/sec)
     """
@@ -60,26 +60,62 @@ def crawler(query, tokens, tweets_each_turn, turns, file_name):
     count = 0
     next_page = None
     tweet_list = []
-    id_set = set()
     while(count < turns):
         for token in tokens:
             data, next_page = get_tweet_1(query, token, tweets_each_turn, next_page)
-            tweet_list, id_set = preprocess(data, id_set, tweet_list)
+            tweet_list = preprocess(data, tweet_list)
             time.sleep(time_gap)
         
         count = count + 1
 
-    output = open(file_name,'wb')
-    pickle.dump(tweet_list, output)
-    output.close()
+    save_to_couchDB(client, tweet_list, db_name)
     
+    return next_page
+
+
+
+def save_to_couchDB(client, tweet_data, db_name):
+    """
+    Save tweets to CouchDB, remove all duplicates
+    """
+    if(client.up() == True):
+        print("Connected to CouchDB")
+    else:
+        print("Unable to connect to CouchDB")
+        return
+
+    if( db_name not in client.all_dbs()):
+        print("No database:" + db_name + ", create one first")
+        client.create(db_name)
+    
+    db = client.get(db_name)
+    count = 0
+
+    for data in tweet_data:
+        if(data['_id'] not in db):
+            db.save(data)
+            count += 1
+    
+    print(str(count) + " tweets is successfully saved to CouchDB")
     return
 
 
-#Set up
+#### Set up
 BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAALWBbQEAAAAA%2FbQ0tpIE3uy14yUmYU0AiocoH6c%3DDkX3Fl2TdMFgRBCivYCSMajfqglkm8DkyylcAXkUFFceAIOBRB",
 "AAAAAAAAAAAAAAAAAAAAAF1YbQEAAAAAEOLr26RmQ1V0eVq1xDR%2FUioYOKY%3DAHtIcXsDHv5lnyzj8KAdzlEbVVaC85k3uvvUvYESyeK0h9knqM"]                
 query1 = '#Melbourne lang:en'
+query2 = 'Melbourne rape lang:en'
+query3 = 'Melbourne family violence lang:en'
+
+client = couchdb3.Server(
+    "http://172.26.132.196:5984",
+    user="admin",
+    password="admin"
+)
+db_name = "renkai_tweets"
 
 
-crawler(query1, BEARER_TOKEN, 100, 1, 'melbourne.pkl')
+### Run
+if(client.up()):
+    while(True): ## infinite loop
+        next_token = crawler(query1, BEARER_TOKEN, 10, 3, client, db_name)
