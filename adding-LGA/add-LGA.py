@@ -1,5 +1,6 @@
 import geojson 
 
+# Open the geojson file 
 with open("vic-lga.geojson", "r") as f:
     gj = geojson.load(f)
 
@@ -30,18 +31,48 @@ for i in range(0,92):
 # print(LGA_FEATURES_LIST)
 # checking that there are 31 features 
 print(len(LGA_FEATURES_LIST))
-print(LGA_FEATURES_LIST[0])
+# print(LGA_FEATURES_LIST[0]["geometry"])
+
+# Finding the bounding box for the first area for centroid calculation
+# we take the first coordinate as the initial values 
+x_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][0]
+y_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][1]
+x_high = x_low
+y_high = y_low
+
+
+for j in range(0, len(LGA_FEATURES_LIST[0]["geometry"]["coordinates"])):
+    for coord in LGA_FEATURES_LIST[0]["geometry"]["coordinates"][j]:
+        if coord[0] < x_low:
+            x_low = coord[0]
+        if coord[1] < y_low:
+            y_low = coord[1]
+        if coord[0] > x_high:
+            x_high = coord[0]
+        if coord[1] > y_high:
+            y_high = coord[1]
+
+print(x_low,y_low,x_high,y_high)
+
+# use the following equation to find the center coordinates - do we need to? 
+# TODO: figure out if we need the center of the bounding box for anything
+# center_x = x_low + ((x_high - x_low)/2)
+# center_y = y_low + ((y_high - y_low)/2)
+
+
 
 # note for this code: the geojson returned is missing the "type":"Feature"
-# field before "geometry", not sure why it is missing
-with open("greater-melbourne-lga.geojson", "w") as greater_melbourne_file:
-    print('{"type":"FeatureCollection, "features":[', file=greater_melbourne_file)
-    for item in LGA_FEATURES_LIST:
-        # this doesn't work, there is a key error because each item is a dictionary not a string
-        # convert to string? 
-        # print(item[0] + '"type":"Feature",' + item[1:], file=greater_melbourne_file)
-        print(item, file=greater_melbourne_file)
-    print("]}", file=greater_melbourne_file)
+# field before "geometry", not sure why it is missing.
+# note also missing the "type":"Polygon" inside the geometry dictionary
+
+# with open("greater-melbourne-lga.geojson", "w") as greater_melbourne_file:
+#     print('{"type":"FeatureCollection, "features":[', file=greater_melbourne_file)
+#     for item in LGA_FEATURES_LIST:
+#         # this doesn't work, there is a key error because each item is a dictionary not a string
+#         # convert to string? 
+#         # print(item[0] + '"type":"Feature",' + item[1:], file=greater_melbourne_file)
+#         print(item, file=greater_melbourne_file)
+#     print("]}", file=greater_melbourne_file)
 
 
 
