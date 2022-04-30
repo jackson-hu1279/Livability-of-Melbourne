@@ -29,7 +29,7 @@ with open(file_name) as f:
 final_results = {"greater_melbourne": results_list}
 output_file = "results-" + file_name
 with open(output_file, "w") as f:
-    json.dump(final_results, f)
+    json.dump(final_results, f, indent = 4)
 
 # check output
 # with open(output_file) as f:
