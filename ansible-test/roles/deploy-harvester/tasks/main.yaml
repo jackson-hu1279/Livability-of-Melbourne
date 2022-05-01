@@ -4,11 +4,13 @@
   file:
     path: /harvester
     state: directory
+
 - name: Copy files
   become: yes
   copy:
     src: ../crawler/
     dest: /harvester
+
 - name: Build harvester container image
   community.docker.docker_image:
     name: harvester
@@ -16,3 +18,14 @@
       path: /harvester
     source: build
     state: present
+
+- name: Launch harvester
+  become: yes
+  community.docker.docker_container:
+    name: harvester
+    image: harvester
+    state: started
+    ports:
+      - "4369:4369"
+      - "5984:5984"
+      - "9100:9100"
