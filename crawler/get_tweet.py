@@ -45,7 +45,7 @@ def get_tweet_1(query, token, tweets_each_turn, next_page = None):
     return tweets.data, tweets.meta['next_token']
 
 
-def crawler(query, tokens, tweets_each_turn, turns, client, db_name):
+def crawler(query, tokens, tweets_each_turn, turns, client, db_name, db_name2):
     """
     Main function. Use query as filter, token for authocation, and number of tweets each turn
     Turns suggest how many turns this function will run
@@ -68,15 +68,17 @@ def crawler(query, tokens, tweets_each_turn, turns, client, db_name):
         
         count = count + 1
 
-    save_to_couchDB(client, tweet_list, db_name)
+    save_to_couchDB(client, tweet_list, db_name, db_name2)
     
     return next_page
 
 
 
-def save_to_couchDB(client, tweet_data, db_name):
+def save_to_couchDB(client, tweet_data, db_name, db_name2):
     """
     Save tweets to CouchDB, remove all duplicates
+    Save tweets without geo info to db_name
+    Save tweets with geo info to db_name2
     """
     if(client.up() == True):
         print("Connected to CouchDB")
@@ -87,16 +89,30 @@ def save_to_couchDB(client, tweet_data, db_name):
     if( db_name not in client.all_dbs()):
         print("No database:" + db_name + ", create one first")
         client.create(db_name)
+
+    if( db_name2 not in client.all_dbs()):
+        print("No database:" + db_name2 + ", create one first")
+        client.create(db_name2)
     
-    db = client.get(db_name)
-    count = 0
+    db1 = client.get(db_name)
+    count1 = 0
+
+    db2 = client.get(db_name2)
+    count2 = 0
 
     for data in tweet_data:
-        if(data['_id'] not in db):
-            db.save(data)
-            count += 1
+        if(data['geo'] == None):
+            if(data['_id'] not in db1):
+                db1.save(data)
+                count1 += 1
+        
+        else:  #store tweets with geo to another database
+            if(data['_id'] not in db2):
+                db2.save(data)
+                count2 += 1
     
-    print(str(count) + " tweets is successfully saved to CouchDB")
+    print(str(count1) + " tweets(no geo) are successfully saved to database" + db_name)
+    print(str(count2) + " tweets(with geo) are successfully saved to database" + db_name2)
     return
 
 
@@ -112,10 +128,11 @@ client = couchdb3.Server(
     user="admin",
     password="admin"
 )
-db_name = "renkai_tweets"
+db_name = "raw_tweets"
+db_name2 = "geo_tweets"
 
 
 ### Run
 if(client.up()):
     while(True): ## infinite loop
-        next_token = crawler(query1, BEARER_TOKEN, 10, 3, client, db_name)
+        next_token = crawler(query1, BEARER_TOKEN, 100, 5, client, db_name, db_name2)
