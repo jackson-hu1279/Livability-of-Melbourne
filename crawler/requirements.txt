@@ -1,0 +1,2 @@
+CouchDB3==1.0.5
+tweepy==4.8.0

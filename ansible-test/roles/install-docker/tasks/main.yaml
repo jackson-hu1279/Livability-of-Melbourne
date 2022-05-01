@@ -1,0 +1,37 @@
+---
+# Install Docker on instances  
+- name: Install required system packages
+  become: yes
+  ansible.builtin.apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+    state: latest
+    update_cache: true
+
+- name: Add Docker official GPG key
+  become: yes
+  ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+- name: Add Docker Repository
+  become: yes
+  ansible.builtin.apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: Install docker
+  become: yes
+  ansible.builtin.apt:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    state: latest
+    update_cache: true
+
+- name: Install Docker SDK library for python
+  become: yes
+  ansible.builtin.pip:
+    name: ['docker', 'docker-compose', 'jsondiff']
+    state: latest

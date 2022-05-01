@@ -1,0 +1,18 @@
+---
+- name: Create build directory
+  become: yes
+  file:
+    path: /harvester
+    state: directory
+- name: Copy files
+  become: yes
+  copy:
+    src: ../crawler/
+    dest: /harvester
+- name: Build harvester container image
+  community.docker.docker_image:
+    name: harvester
+    build:
+      path: /harvester
+    source: build
+    state: present
