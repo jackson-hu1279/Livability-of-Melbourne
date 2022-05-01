@@ -1,10 +1,13 @@
 import geojson 
+import json
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
 
 # Open the geojson file 
 with open("vic-lga.geojson", "r") as f:
     gj = geojson.load(f)
 
-# access the third row (second object) in the geojson file
+# aside:  access the third row (second object) in the geojson file
 # features = gj["features"][2]
 
 # Greater melbourne LGAs taken from wikipedia page
@@ -19,40 +22,110 @@ GREATER_MELBOURNE_LGA_LIST = [
     "Whittlesea City", "Wyndham City", "Yarra Ranges Shire"
     ]
 
-LGA_FEATURES_LIST = []
+GREATER_MELBOURNE_LGA_CODES = [
+    20660, 20910, 21110, 21180, 21450, 21610, 21890, 22170, 22310,
+    22670, 23110, 23270, 23430, 23670, 24210, 24330, 24410, 24600,
+    24650, 24970, 25060, 25250, 25340, 25710, 25900, 26350, 26980,
+    27070, 27260, 27350, 27450
+]
 
+LGA_FEATURES_LIST = []
+count = 0
 # There are 91 LGAs in Victoria - we only want information about LGAs in Greater Melbourne (31), we store in a list object
 for i in range(0,92):
     lga_features = gj["features"][i]
-    lga_name = gj["features"][i]["properties"]["LGA_NAME"]
+    lga_name = lga_features["properties"]["LGA_NAME"]
     if lga_name in GREATER_MELBOURNE_LGA_LIST:
+        lga_features["properties"]["LGA_CODE"] = GREATER_MELBOURNE_LGA_CODES[count]
+        count += 1
         LGA_FEATURES_LIST.append(lga_features)
+
+print(LGA_FEATURES_LIST[2]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[2]["properties"]["LGA_CODE"])
+        
 
 # print(LGA_FEATURES_LIST)
 # checking that there are 31 features 
 print(len(LGA_FEATURES_LIST))
 # print(LGA_FEATURES_LIST[0]["geometry"])
+# print(LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0])
+# print(type(Polygon(LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0])))
 
+# Convert all the coordinates to Polygon type 
+for i in range(len(LGA_FEATURES_LIST)):
+    LGA_FEATURES_LIST[i]["geometry"]["coordinates"][0] = Polygon(LGA_FEATURES_LIST[i]["geometry"]["coordinates"][0])
+
+# print(LGA_FEATURES_LIST[30]["geometry"]["coordinates"][0])
+
+# ----------------------------------------------------------------------------------------------
+# Step 2 - Open up all the extracted json files and extract the coordinates out
+# TODO: should i attach all the LGAs first and then extract? probably better. 
+
+# sample code with only the first extracted json file 
+with open ("extracted-1.json", "r", encoding = "utf-8") as tweets_json:
+    tweet_data = json.load(tweets_json)
+
+# point = Point(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+# print(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+
+print(len(tweet_data["docs"]))
+
+for i in range(len(tweet_data["docs"])):
+    point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) #TODO: list index out of range error here? 
+    for j in range(len(LGA_FEATURES_LIST)):
+        if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # add the LGA name and code to the tweet as a new key
+            tweet_data["docs"][j]["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
+            tweet_data["docs"][j]["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
+        else: # remove the tweet if it doesn't belong in any of the LGA
+            tweet_data["docs"].pop(j)
+
+print(tweet_data["docs"][0])
+
+
+# Step 3 - see if the point is in any of the polygons - if it is, add it to the tweet and add the LGA_NAME to that tweet
+# if it isn't, remove the tweet from the file (or don't write to the new file)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# might not be super useful ---------------------
 # Finding the bounding box for the first area for centroid calculation
 # we take the first coordinate as the initial values 
-x_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][0]
-y_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][1]
-x_high = x_low
-y_high = y_low
+# x_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][0]
+# y_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][1]
+# x_high = x_low
+# y_high = y_low
 
 
-for j in range(0, len(LGA_FEATURES_LIST[0]["geometry"]["coordinates"])):
-    for coord in LGA_FEATURES_LIST[0]["geometry"]["coordinates"][j]:
-        if coord[0] < x_low:
-            x_low = coord[0]
-        if coord[1] < y_low:
-            y_low = coord[1]
-        if coord[0] > x_high:
-            x_high = coord[0]
-        if coord[1] > y_high:
-            y_high = coord[1]
+# for j in range(0, len(LGA_FEATURES_LIST[0]["geometry"]["coordinates"])):
+#     for coord in LGA_FEATURES_LIST[0]["geometry"]["coordinates"][j]:
+#         if coord[0] < x_low:
+#             x_low = coord[0]
+#         if coord[1] < y_low:
+#             y_low = coord[1]
+#         if coord[0] > x_high:
+#             x_high = coord[0]
+#         if coord[1] > y_high:
+#             y_high = coord[1]
 
-print(x_low,y_low,x_high,y_high)
+# print(x_low,y_low,x_high,y_high)
 
 # use the following equation to find the center coordinates - do we need to? 
 # TODO: figure out if we need the center of the bounding box for anything
