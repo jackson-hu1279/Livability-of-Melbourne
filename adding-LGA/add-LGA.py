@@ -57,32 +57,48 @@ for i in range(len(LGA_FEATURES_LIST)):
 # print(LGA_FEATURES_LIST[30]["geometry"]["coordinates"][0])
 
 # ----------------------------------------------------------------------------------------------
-# Step 2 - Open up all the extracted json files and extract the coordinates out
-# TODO: should i attach all the LGAs first and then extract? probably better. 
+# Step 2 - Open up all the extracted json files and see if the coordinate (convert to Point object) is in the polygon
 
-# sample code with only the first extracted json file 
+# sample code with only the first extracted json file (extracted-1.json)
+# Open the json file
 with open ("extracted-1.json", "r", encoding = "utf-8") as tweets_json:
     tweet_data = json.load(tweets_json)
 
-# point = Point(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
-# print(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+# some tests
+print(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+point = Point(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+print(point)
+print(tweet_data["docs"][0]["doc"]["geo"]["coordinates"])
 
 print(len(tweet_data["docs"]))
 
-for i in range(len(tweet_data["docs"])):
-    point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) #TODO: list index out of range error here? 
+# for i in range(0,10):
+#     point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"])
+#     print(point)
+
+# testing for only the first tweet
+for i in range(0,1):
+    point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) #TODO: list index out of range error here when using len(tweet_data["docs"])
     for j in range(len(LGA_FEATURES_LIST)):
-        if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # add the LGA name and code to the tweet as a new key
+        if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # if true, add the LGA name and code to the tweet as a new key
             tweet_data["docs"][j]["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
             tweet_data["docs"][j]["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
-        else: # remove the tweet if it doesn't belong in any of the LGA
-            tweet_data["docs"].pop(j)
+            print("in LGA", LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"])
+            print(tweet_data["docs"][j]["LGA_NAME"])
+        # else: # remove the tweet if it doesn't belong in any of the LGA (TODO: Check if LGA_NAME key is empty, if it is, remove)
+        #     print("not in LGA")
+        #     tweet_data["docs"].pop(j) 
 
+# TODO: Logic error? There is no LGA_NAME key eventhough it prints fine above
 print(tweet_data["docs"][0])
 
 
-# Step 3 - see if the point is in any of the polygons - if it is, add it to the tweet and add the LGA_NAME to that tweet
-# if it isn't, remove the tweet from the file (or don't write to the new file)
+# Step 3 - write to new json file
+
+# with open("updated-1.json", "w", encoding="utf-8") as updated_file:
+#     json.dump(tweet_data, updated_file)
+    
+
 
 
 
