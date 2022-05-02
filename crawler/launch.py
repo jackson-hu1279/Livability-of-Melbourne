@@ -1,13 +1,17 @@
 import os
+import tweet_topicA
+import tweet_topicB
+import raw_tweet
 
 scenario = os.environ['SCENARIO']
+print(scenario)
 
 if scenario == "Crime":
     print("Execute scenario of Crime")
-    exec(open("tweet_topicA.py").read())
+    tweet_topicA.main()
 elif scenario == "Mental":
     print("Execute scenario of Mental Health")
-    exec(open("tweet_topicB.py").read())
+    tweet_topicB.main()
 else:
     print("Collect raw tweets")
-    exec(open("raw_tweet.py").read())
+    raw_tweet.main()
