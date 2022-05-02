@@ -25,7 +25,7 @@ count = 0
 if(client.up()):
     while(True): ## infinite loop
         if(count == 0):
-            next_tokens = tw.crawler_2(query, BEARER_TOKEN, 100, 2, client, db_name)
+            next_tokens = tw.crawler_2(query, BEARER_TOKEN, 100, 20, client, db_name)
             count = 1
 
         next_tokens = tw.crawler_2(query, BEARER_TOKEN, 100, 5, client, db_name)
