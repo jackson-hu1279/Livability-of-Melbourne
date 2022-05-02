@@ -121,7 +121,7 @@ BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAALWBbQEAAAAA%2FbQ0tpIE3uy14yUmYU0AiocoH6c%3
 "AAAAAAAAAAAAAAAAAAAAAF1YbQEAAAAAEOLr26RmQ1V0eVq1xDR%2FUioYOKY%3DAHtIcXsDHv5lnyzj8KAdzlEbVVaC85k3uvvUvYESyeK0h9knqM",
 "AAAAAAAAAAAAAAAAAAAAABTzbAEAAAAAdojtSeSLrMbP1332MUDWvDH%2BizY%3DMTbgi5FKJHNnLwwO5acTPNP3uWRPrUAtoxnckAzXiDq3BwU4Bo"]
 
-query_key = ['#Melbourne lang:en', 'Melbourne rape lang:en', 'Melbourne family violence lang:en', '(melb OR Melbourne) (depression OR suicide OR anxiety OR dying OR death OR hallucination)']
+query_key = ['#Melbourne lang:en', '(Melbourne OR melbourne) lang:en', 'Melbourne family violence lang:en', '(melb OR Melbourne) (depression OR suicide OR anxiety OR dying OR death OR hallucination)']
 
 client = couchdb3.Server(
     "http://172.26.132.196:5984",
@@ -135,4 +135,5 @@ db_name2 = "geo_tweets"
 ### Run
 if(client.up()):
     while(True): ## infinite loop
-        next_tokens = crawler(query_key[0], BEARER_TOKEN, 100, 5, client, db_name, db_name2)
+        next_tokens = crawler(query_key[1], BEARER_TOKEN, 100, 5, client, db_name, db_name2)
+        next_tokens = crawler(query_key[0], BEARER_TOKEN, 100, 2, client, db_name, db_name2)
