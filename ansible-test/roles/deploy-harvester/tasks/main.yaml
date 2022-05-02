@@ -37,3 +37,4 @@
       - "9100:9100"
     env:
       SCENARIO: Crime
+      PYTHONUNBUFFERED: "1"
