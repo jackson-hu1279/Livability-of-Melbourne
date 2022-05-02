@@ -2,6 +2,8 @@ import get_tweet as tw
 import couchdb3
 import tweepy
 
+print("Executing harvester - Mental Health")
+
 #### Set up
 BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAABTzbAEAAAAAdojtSeSLrMbP1332MUDWvDH%2BizY%3DMTbgi5FKJHNnLwwO5acTPNP3uWRPrUAtoxnckAzXiDq3BwU4Bo",
 "AAAAAAAAAAAAAAAAAAAAAN%2FIbQEAAAAAsOzq2imuYFShxFO1EnN4EcOEA6c%3DMgCTYsVUpitvOTzwJFpMDCOvSPb2K5PNOjE1kLxnaTGXSPw462"]

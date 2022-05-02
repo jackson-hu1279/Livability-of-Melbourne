@@ -6,4 +6,4 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-CMD ["python", "get_tweet.py"]
+CMD ["python", "launch.py"]

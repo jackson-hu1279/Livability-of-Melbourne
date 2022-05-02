@@ -2,8 +2,7 @@ import get_tweet as tw
 import couchdb3
 import tweepy
 
-
-
+print("Executing harvester - Raw")
 
 #### Set up
 BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAALWBbQEAAAAA%2FbQ0tpIE3uy14yUmYU0AiocoH6c%3DDkX3Fl2TdMFgRBCivYCSMajfqglkm8DkyylcAXkUFFceAIOBRB"]

@@ -19,6 +19,12 @@
     source: build
     state: present
 
+- name: Stop harvester container if exist
+  become: yes
+  community.docker.docker_container:
+    name: harvester
+    state: absent
+
 - name: Launch harvester
   become: yes
   community.docker.docker_container:
@@ -29,3 +35,5 @@
       - "4369:4369"
       - "5984:5984"
       - "9100:9100"
+    env:
+      SCENARIO: Crime
