@@ -47,6 +47,7 @@ def get_tweet_1(query, token, tweets_each_turn, next_page = None):
 
 def crawler(query, tokens, tweets_each_turn, turns, client, db_name, db_name2):
     """
+    This crawler is used to get raw tweet(including tweets without geo)
     Main function. Use query as filter, token for authocation, and number of tweets each turn
     Turns suggest how many turns this function will run
     Get tweets from Twitter
@@ -80,6 +81,7 @@ def save_to_couchDB(client, tweet_data, db_name, db_name2):
     Save tweets to CouchDB, remove all duplicates
     Save tweets without geo info to db_name
     Save tweets with geo info to db_name2
+    Used to collect all tweets(including tweets without geo)
     """
     if(client.up() == True):
         print("Connected to CouchDB")
@@ -117,24 +119,71 @@ def save_to_couchDB(client, tweet_data, db_name, db_name2):
     return
 
 
-#### Set up
-BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAALWBbQEAAAAA%2FbQ0tpIE3uy14yUmYU0AiocoH6c%3DDkX3Fl2TdMFgRBCivYCSMajfqglkm8DkyylcAXkUFFceAIOBRB",
-"AAAAAAAAAAAAAAAAAAAAAF1YbQEAAAAAEOLr26RmQ1V0eVq1xDR%2FUioYOKY%3DAHtIcXsDHv5lnyzj8KAdzlEbVVaC85k3uvvUvYESyeK0h9knqM",
-"AAAAAAAAAAAAAAAAAAAAABTzbAEAAAAAdojtSeSLrMbP1332MUDWvDH%2BizY%3DMTbgi5FKJHNnLwwO5acTPNP3uWRPrUAtoxnckAzXiDq3BwU4Bo"]
-
-query_key = ['#Melbourne lang:en', '(Melbourne OR melbourne) lang:en', 'Melbourne family violence lang:en', '(melb OR Melbourne) (depression OR suicide OR anxiety OR dying OR death OR hallucination)']
-
-client = couchdb3.Server(
-    "http://172.26.132.196:5984",
-    user="admin",
-    password="admin"
-)
-db_name = "raw_tweets"
-db_name2 = "geo_tweets"
 
 
-### Run
-if(client.up()):
-    while(True): ## infinite loop
-        next_tokens = crawler(query_key[1], BEARER_TOKEN, 100, 5, client, db_name, db_name2)
-        next_tokens = crawler(query_key[0], BEARER_TOKEN, 100, 2, client, db_name, db_name2)
+def crawler_2(query, tokens, tweets_each_turn, turns, client, db_name):
+    """
+    Main function. Use query as filter, token for authocation, and number of tweets each turn
+    Turns suggest how many turns this function will run
+    Get tweets from Twitter
+    Refrom tweets to dictionary type
+    Save tweets to CouchDB
+    Automatically repeat this process.
+    For one token, speed limit is 900 tweets/15min(1/sec)
+    """
+
+    time_gap = int (tweets_each_turn / len(tokens)) + 1
+    
+    count = 0
+    next_page = None
+    tweet_list = []
+    while(count < turns):
+        for token in tokens:
+            data, next_page = get_tweet_1(query, token, tweets_each_turn, next_page)
+            tweet_list = preprocess(data, tweet_list)
+            time.sleep(time_gap)
+        
+        count = count + 1
+
+    save_to_couchDB_2(client, tweet_list, db_name)
+    
+    return next_page
+
+
+
+def save_to_couchDB_2(client, tweet_data, db_name):
+    """
+    Save tweets to CouchDB, remove all duplicates
+    Save tweets with geo info to db_name
+    Filter is based on coorinates
+    Used for specific scenario
+    """
+
+    geo_filter = [144.33363404800002, -38.50298801599996, 145.8784120140001, -37.17509899299995]
+
+    if(client.up() == True):
+        print("Connected to CouchDB")
+    else:
+        print("Unable to connect to CouchDB")
+        return
+
+    if( db_name not in client.all_dbs()):
+        print("No database:" + db_name + ", create one first")
+        client.create(db_name)
+    
+    db1 = client.get(db_name)
+    count1 = 0
+
+    for data in tweet_data:
+        if(data['geo'] != None):#only store tweets with geo to database
+            if('coordinates' in data['geo'].keys()):
+                if(data['_id'] not in db1):
+                    latitude = data['geo']['coordinates']['coordinates'][0] 
+                    longitude = data['geo']['coordinates']['coordinates'][1] 
+                    if( latitude >= geo_filter[0] and latitude <= geo_filter[2]):
+                        if(longitude >= geo_filter[1] and longitude <= geo_filter[3]):
+                            db1.save(data)
+                            count1 += 1
+    
+    print(str(count1) + " tweets(with geo) are successfully saved to database" + db_name)
+    return
