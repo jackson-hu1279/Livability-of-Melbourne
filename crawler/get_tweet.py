@@ -57,20 +57,20 @@ def crawler(query, tokens, tweets_each_turn, turns, client, db_name, db_name2):
     """
 
     time_gap = int (tweets_each_turn / len(tokens)) + 1
-    count = 0
-    next_page = None
+    next_pages = {}
+    for token in tokens:
+        next_pages[token] = None
     tweet_list = []
-    while(count < turns):
+    for _ in range(turns):
         for token in tokens:
-            data, next_page = get_tweet_1(query, token, tweets_each_turn, next_page)
+            data, next_page = get_tweet_1(query, token, tweets_each_turn, next_pages[token])
             tweet_list = preprocess(data, tweet_list)
+            next_pages[token] = next_page
             time.sleep(time_gap)
-        
-        count = count + 1
 
     save_to_couchDB(client, tweet_list, db_name, db_name2)
     
-    return next_page
+    return next_pages
 
 
 
@@ -118,10 +118,10 @@ def save_to_couchDB(client, tweet_data, db_name, db_name2):
 
 #### Set up
 BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAALWBbQEAAAAA%2FbQ0tpIE3uy14yUmYU0AiocoH6c%3DDkX3Fl2TdMFgRBCivYCSMajfqglkm8DkyylcAXkUFFceAIOBRB",
-"AAAAAAAAAAAAAAAAAAAAAF1YbQEAAAAAEOLr26RmQ1V0eVq1xDR%2FUioYOKY%3DAHtIcXsDHv5lnyzj8KAdzlEbVVaC85k3uvvUvYESyeK0h9knqM"]                
-query1 = '#Melbourne lang:en'
-query2 = 'Melbourne rape lang:en'
-query3 = 'Melbourne family violence lang:en'
+"AAAAAAAAAAAAAAAAAAAAAF1YbQEAAAAAEOLr26RmQ1V0eVq1xDR%2FUioYOKY%3DAHtIcXsDHv5lnyzj8KAdzlEbVVaC85k3uvvUvYESyeK0h9knqM",
+"AAAAAAAAAAAAAAAAAAAAABTzbAEAAAAAdojtSeSLrMbP1332MUDWvDH%2BizY%3DMTbgi5FKJHNnLwwO5acTPNP3uWRPrUAtoxnckAzXiDq3BwU4Bo"]
+
+query_key = ['#Melbourne lang:en', '(Melbourne OR melbourne) lang:en', 'Melbourne family violence lang:en', '(melb OR Melbourne) (depression OR suicide OR anxiety OR dying OR death OR hallucination)']
 
 client = couchdb3.Server(
     "http://172.26.132.196:5984",
@@ -135,4 +135,5 @@ db_name2 = "geo_tweets"
 ### Run
 if(client.up()):
     while(True): ## infinite loop
-        next_token = crawler(query1, BEARER_TOKEN, 100, 5, client, db_name, db_name2)
+        next_tokens = crawler(query_key[1], BEARER_TOKEN, 100, 5, client, db_name, db_name2)
+        next_tokens = crawler(query_key[0], BEARER_TOKEN, 100, 2, client, db_name, db_name2)
