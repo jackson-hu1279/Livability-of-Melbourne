@@ -57,20 +57,21 @@ def crawler(query, tokens, tweets_each_turn, turns, client, db_name, db_name2):
     """
 
     time_gap = int (tweets_each_turn / len(tokens)) + 1
-    next_pages = {}
-    for token in tokens:
-        next_pages[token] = None
+    
+    count = 0
+    next_page = None
     tweet_list = []
-    for _ in range(turns):
+    while(count < turns):
         for token in tokens:
-            data, next_page = get_tweet_1(query, token, tweets_each_turn, next_pages[token])
+            data, next_page = get_tweet_1(query, token, tweets_each_turn, next_page)
             tweet_list = preprocess(data, tweet_list)
-            next_pages[token] = next_page
             time.sleep(time_gap)
+        
+        count = count + 1
 
     save_to_couchDB(client, tweet_list, db_name, db_name2)
     
-    return next_pages
+    return next_page
 
 
 
