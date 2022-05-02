@@ -136,4 +136,4 @@ db_name2 = "geo_tweets"
 if(client.up()):
     while(True): ## infinite loop
         next_tokens = crawler(query_key[1], BEARER_TOKEN, 100, 5, client, db_name, db_name2)
-        next_tokens = crawler(query_key[0], BEARER_TOKEN, 100, 5, client, db_name, db_name2)
+        next_tokens = crawler(query_key[0], BEARER_TOKEN, 100, 2, client, db_name, db_name2)
