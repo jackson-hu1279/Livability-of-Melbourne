@@ -60,8 +60,16 @@ for i in range(len(LGA_FEATURES_LIST)):
 
 # sample code with only the first extracted json file (extracted-1.json)
 # Open the json file
-with open ("extracted-1.json", "r", encoding = "utf-8") as tweets_json:
-    tweet_data = json.load(tweets_json)
+
+# counter = 0
+# chunk_size = 25000
+file_num = 0
+total_files = 100
+
+while file_num < total_files + 1:
+    file_num += 1
+    with open ("extracted-{0}.json".format(file_num), "r", encoding = "utf-8") as tweets_json:
+        tweet_data = json.load(tweets_json)
 
 # some tests
 # print(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
@@ -72,29 +80,37 @@ with open ("extracted-1.json", "r", encoding = "utf-8") as tweets_json:
 # print(len(tweet_data["docs"]))
 
 
-for i in range(len(tweet_data["docs"])):
-    point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) #TODO: list index out of range error here when using len(tweet_data["docs"])
-    for j in range(len(LGA_FEATURES_LIST)):
-        if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # if true, add the LGA name and code to the tweet as a new key
-            tweet_data["docs"][i]["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
-            tweet_data["docs"][i]["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
-            print("in LGA", LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"])
-            print(tweet_data["docs"][i]["LGA_NAME"])
-    if "LGA_NAME" not in tweet_data["docs"][i]:
-        print("not in LGA")
-        tweet_data["docs"][i]["LGA_NAME"] = "NO LGA"
-        tweet_data["docs"][i]["LGA_CODE"] = "NO LGA CODE"
-
-
+    for i in range(len(tweet_data["docs"])):
+        if type(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) != None: # TODO: none type object not subscriptable error
+            point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"])  
+            for j in range(len(LGA_FEATURES_LIST)):
+                if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # if true, add the LGA name and code to the tweet as a new key
+                    tweet_data["docs"][i]["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
+                    tweet_data["docs"][i]["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
+                    print("in LGA", LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"])
+                    print(tweet_data["docs"][i]["LGA_NAME"])
+            if "LGA_NAME" not in tweet_data["docs"][i]:
+                print("not in LGA")
+                tweet_data["docs"][i]["LGA_NAME"] = "NO LGA"
+                tweet_data["docs"][i]["LGA_CODE"] = "NO LGA CODE"
 
 
 # Step 3 - write to new json file
-# TODO: right now json file is all in one line, want to make it line-delimited 
+    counter = 0
+    chunk_size = 25000
 
-with open("updated-1.json", "w", encoding="utf-8") as updated_file:
-    for record in tweet_data["docs"]:
-        print(record, file = updated_file)
-    
+    with open("updated-{0}.json".format(file_num), "w", encoding="utf-8") as updated_file:
+        print('{"docs": [', file=updated_file)
+        for record in tweet_data["docs"]:
+            counter += 1
+            if counter == chunk_size:
+                json.dump(record, updated_file)
+                updated_file.write('\n')
+            else: 
+                json.dump(record, updated_file)
+                updated_file.write(",")
+                updated_file.write('\n')
+        print(']}', file=updated_file)
 
 
 
