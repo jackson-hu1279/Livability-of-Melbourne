@@ -2,6 +2,7 @@ import get_tweet as tw
 import couchdb3
 import tweepy
 import pickle
+from shapely.geometry import Point
 
 #### Set up
 BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAABTzbAEAAAAAdojtSeSLrMbP1332MUDWvDH%2BizY%3DMTbgi5FKJHNnLwwO5acTPNP3uWRPrUAtoxnckAzXiDq3BwU4Bo",

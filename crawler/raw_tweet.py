@@ -2,6 +2,7 @@ import get_tweet as tw
 import couchdb3
 import tweepy
 import pickle
+from shapely.geometry import Point
 
 
 
