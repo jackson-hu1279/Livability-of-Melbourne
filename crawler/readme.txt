@@ -7,6 +7,8 @@ raw_tweet.py harvests all tweets about Melbourne(with or without geo info)
 tweet_topicA.py harvests all tweets about topic A(with geo info)
 tweet_topicB.py harvests all tweets about topic B(with geo info)
 
+LGA_list.pkl is used for attatching LAG tags to tweets
+
 5 tokens in total, 1 for raw_tweet.py, 2 for tweet_topicA.py, 2 for tweet_topicB.py
 
 Do NOT use other files.

@@ -1,0 +1,54 @@
+abduction
+abuse
+accident
+arson
+assassination
+assault
+bigamy
+blackmail
+bombing
+bribery
+burglary
+corruption
+crime
+cybercrime
+domestic violence
+drug
+embezzlement
+espionage
+family violence
+felony
+forgery
+fraud
+gang
+genocide
+hijacking
+hit and run
+homicide
+hooliganism
+identity theft
+incident
+infraction
+kidnapping
+looting
+lynching
+manslaughter
+mugging
+murder
+pickpocketing
+pilfering
+poaching
+rape
+riot
+robbery
+shoplifting
+slander
+smuggling
+terrorism
+theft
+trafficking
+transgression
+trespassing
+vandalism
+voyeurism
+violation
