@@ -14,7 +14,7 @@ BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAAF1YbQEAAAAAEOLr26RmQ1V0eVq1xDR%2FUioYOKY%3
 
 query1 = 'abduction OR abuse OR accident OR arson OR assassination OR assault OR bigamy OR blackmail OR bombing OR bribery OR corruption OR crime OR transgression OR violation lang:en'
 query2 = 'cybercrime OR (domestic violence) OR drug OR embezzlement OR espionage OR (family violence) OR felony OR forgery OR fraud OR gang OR genocide OR vandalism lang:en'
-query3 = 'hijacking OR (hit and run) OR homicide OR hooliganism OR (identity theft) OR incident OR infraction OR kidnapping OR looting OR lynching OR trespassing OR voyeurism lang:en'
+query3 = 'hijacking OR (hit run) OR homicide OR hooliganism OR (identity theft) OR incident OR infraction OR kidnapping OR looting OR lynching OR trespassing OR voyeurism lang:en'
 query4 = 'manslaughter OR mugging OR murder OR pickpocketing OR pilfering OR poaching OR rape OR riot OR robbery OR shoplifting OR slander OR smuggling OR terrorism OR theft OR trafficking lang:en'
 
 client = couchdb3.Server(
