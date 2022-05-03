@@ -4,12 +4,20 @@ import json
 # TODO: then we try and filter out all the keys in "doc" except _id, _rev, author_id, text, created_at, coordinates, geo
 # TODO: then filter through the tweet["docs"]["doc"]["text"] and search for the keywords 
 keywords_crime = [
-    "incident", "incidences", "family violence", "drug", "drugged", "drugging", "robbery", "robbed","theft", "theif", 
-    "trespass", "trespassing", "trespasser", "murder", "murdered"
+    "abduct", "abuse", "abusive", "arson", "assassin", "assault", "bigamy", "blackmail", "bombing", "bribe", "burglar", 
+    "corrupt", "crime", "cybercrime", "cyber crime", "domestic violence", "drug", "embezzle", "espionage", "family violence", 
+    "felony", "forgery", "fraud", "gang", "genocide", "hijack", "hit and run", "homicide", "homicidal", "hooliganism", 
+    "identity theft", "incident", "infract", "kidnap", "looting", "lynch", "manslaughter", "mugging", "mugged", "murder",
+    "pickpocket", "pilfering", "poaching", "rape", "rapist", "riot", "robbery", "robbed", "shoplift", "slander", "smuggle", 
+    "smuggling", "terrorism", "theft", "traffick", "transgression", "trespass", "vandalism", "vandalize", "vandalise",
+    "voyeurism", "violate", "violation"
     ]
 keywords_health =[
-    "suicide", "depressed", "depression", "anxiety", "anxious", "dying", "death", "hallucination", "hallucinate",
-    "hallucinating", "self harm", "personality disorder"
+    "anxiety", "anxious", "craziness", "delusion", "delude", "depress", "disturbed mind", "dying", "death",
+    "emotional disorder", "emotional instability", "exhaust", "hallucinate", "hallucinating", "hallucination",
+    "insanity", "mental disorder", "mental disease", "mental health", "mental sickness", "nervous disorder",
+    "neurosis", "neurotic disorder", "personality disorder", "schizophrenia", "self harm", "self-harm", "suicide",
+    "suicidal", "suiciding"
     ]
 
 
