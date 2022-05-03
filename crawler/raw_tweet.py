@@ -21,8 +21,12 @@ client = couchdb3.Server(
 db_name = "raw_tweets"
 db_name2 = "geo_tweets"
 
-
+count = 0
 ### Run
 if(client.up()):
     while(True): ## infinite loop
+        if(count == 0):
+            next_tokens = tw.crawler(query, BEARER_TOKEN, 50, 40, client, db_name, db_name2)
+            count = 1
+
         next_tokens = tw.crawler(query, BEARER_TOKEN, 50, 5, client, db_name, db_name2)
