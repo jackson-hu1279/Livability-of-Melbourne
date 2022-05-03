@@ -36,5 +36,5 @@
       - "5984:5984"
       - "9100:9100"
     env:
-      SCENARIO: Crime
+      SCENARIO: Raw
       PYTHONUNBUFFERED: "1"

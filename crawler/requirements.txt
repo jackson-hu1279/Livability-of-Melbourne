@@ -3,3 +3,4 @@ Shapely==1.8.1.post1
 twarc==2.10.4
 tweepy==4.8.0
 utils==1.0.1
+geojson==2.5.0
