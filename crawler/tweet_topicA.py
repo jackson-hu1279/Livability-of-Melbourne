@@ -17,7 +17,7 @@ client = couchdb3.Server(
     user="admin",
     password="admin"
 )
-db_name = "topicA_tweets"
+db_name = "crime_tweets"
 
 
 count = 0
