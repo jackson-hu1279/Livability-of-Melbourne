@@ -26,4 +26,4 @@ def main():
                 next_tokens = tw.crawler_2(query, BEARER_TOKEN, 100, 20, client, db_name)
                 count = 1
 
-            next_tokens = tw.crawler_2(query, BEARER_TOKEN, 100, 10, client, db_name)
+            next_tokens = tw.crawler_2(query, BEARER_TOKEN, 100, 5, client, db_name)
