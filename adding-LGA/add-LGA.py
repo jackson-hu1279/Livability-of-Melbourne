@@ -2,7 +2,25 @@ import geojson
 import json
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
+from sqlalchemy import null
 
+
+def write_tweets(filename, tweets):
+    with open(filename, "w", encoding="utf-8") as updated_file:
+        print('{"docs": [', file=updated_file)
+        i = 0
+        for record in tweets:
+            json.dump(record, updated_file)
+            if i < len(tweets) -1:
+                updated_file.write(",")
+            updated_file.write('\n')
+            i += 1
+        print(']}', file=updated_file)
+
+    with open(filename) as fp:
+        # only to check that the format is correct
+        json.load(fp)
+    
 # Open the geojson file 
 with open("vic-lga.geojson", "r") as f:
     gj = geojson.load(f)
@@ -63,125 +81,112 @@ for i in range(len(LGA_FEATURES_LIST)):
 
 # counter = 0
 # chunk_size = 25000
-file_num = 0
-total_files = 100
+# file_num = 0
+# total_files = 1
 
-while file_num < total_files + 1:
-    file_num += 1
-    with open ("extracted-{0}.json".format(file_num), "r", encoding = "utf-8") as tweets_json:
-        tweet_data = json.load(tweets_json)
+# here for our new version of the code, we would be opening crimes.json and health.json
+# crimes.json
 
-# some tests
-# print(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
-# point = Point(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
-# print(point)
-# print(tweet_data["docs"][0]["doc"]["geo"]["coordinates"])
+with_lga = []
+without_lga = []
 
-# print(len(tweet_data["docs"]))
-
-
-    for i in range(len(tweet_data["docs"])):
-        if type(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) != None: # TODO: none type object not subscriptable error
-            point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"])  
+with open ("crimes.json", "r", encoding = "utf-8") as tweets_json:
+    tweet_data = json.load(tweets_json)
+    for tweet in tweet_data['docs']:
+        coords = tweet.get('coordinates')
+        if coords:
+            point = Point(coords["coordinates"])  
             for j in range(len(LGA_FEATURES_LIST)):
                 if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # if true, add the LGA name and code to the tweet as a new key
-                    tweet_data["docs"][i]["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
-                    tweet_data["docs"][i]["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
+                    tweet["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
+                    tweet["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
                     print("in LGA", LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"])
-                    print(tweet_data["docs"][i]["LGA_NAME"])
-            if "LGA_NAME" not in tweet_data["docs"][i]:
-                print("not in LGA")
-                tweet_data["docs"][i]["LGA_NAME"] = "NO LGA"
-                tweet_data["docs"][i]["LGA_CODE"] = "NO LGA CODE"
-
+                    print(tweet["LGA_NAME"])
+                    with_lga.append(tweet)
+        
+        if "LGA_NAME" not in tweet:
+            print("not in LGA")
+            tweet["LGA_NAME"] = "NO LGA"
+            tweet["LGA_CODE"] = "NO LGA CODE"
+            without_lga.append(tweet)
 
 # Step 3 - write to new json file
-    counter = 0
-    chunk_size = 25000
 
-    with open("updated-{0}.json".format(file_num), "w", encoding="utf-8") as updated_file:
-        print('{"docs": [', file=updated_file)
-        for record in tweet_data["docs"]:
-            counter += 1
-            if counter == chunk_size:
-                json.dump(record, updated_file)
-                updated_file.write('\n')
-            else: 
-                json.dump(record, updated_file)
-                updated_file.write(",")
-                updated_file.write('\n')
-        print(']}', file=updated_file)
+    write_tweets('crimes-updated.json', tweet_data['docs'])
+    write_tweets('crimes-updated-lga.json', with_lga)
+    write_tweets('crimes-updated-without-lga.json', without_lga)
 
+    
 
+# while file_num < total_files:
+#     file_num += 1
+#     with open ("extracted-{0}.json".format(file_num), "r", encoding = "utf-8") as tweets_json:
+#         tweet_data = json.load(tweets_json)
 
+# # some tests
+# # print(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+# # point = Point(tweet_data["docs"][0]["doc"]["coordinates"]["coordinates"])
+# # print(point)
+# # print(tweet_data["docs"][0]["doc"]["geo"]["coordinates"])
 
-
-
+# # print(len(tweet_data["docs"]))
 
 
+#     for i in range(len(tweet_data["docs"])):
+#         if type(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"]) != None: # TODO: none type object not subscriptable error
+#             point = Point(tweet_data["docs"][i]["doc"]["coordinates"]["coordinates"])  
+#             for j in range(len(LGA_FEATURES_LIST)):
+#                 if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # if true, add the LGA name and code to the tweet as a new key
+#                     tweet_data["docs"][i]["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
+#                     tweet_data["docs"][i]["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
+#                     print("in LGA", LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"])
+#                     print(tweet_data["docs"][i]["LGA_NAME"])
+#             if "LGA_NAME" not in tweet_data["docs"][i]:
+#                 print("not in LGA")
+#                 tweet_data["docs"][i]["LGA_NAME"] = "NO LGA"
+#                 tweet_data["docs"][i]["LGA_CODE"] = "NO LGA CODE"
 
 
+# # Step 3 - write to new json file
+#     counter = 0
+#     chunk_size = 1000
 
-
-
-
-
-
-
-
-
-
-
-
-
-# might not be super useful ---------------------
-# Finding the bounding box for the first area for centroid calculation
-# we take the first coordinate as the initial values 
-# x_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][0]
-# y_low = LGA_FEATURES_LIST[0]["geometry"]["coordinates"][0][0][1]
-# x_high = x_low
-# y_high = y_low
-
-
-# for j in range(0, len(LGA_FEATURES_LIST[0]["geometry"]["coordinates"])):
-#     for coord in LGA_FEATURES_LIST[0]["geometry"]["coordinates"][j]:
-#         if coord[0] < x_low:
-#             x_low = coord[0]
-#         if coord[1] < y_low:
-#             y_low = coord[1]
-#         if coord[0] > x_high:
-#             x_high = coord[0]
-#         if coord[1] > y_high:
-#             y_high = coord[1]
-
-# print(x_low,y_low,x_high,y_high)
-
-# use the following equation to find the center coordinates - do we need to? 
-# TODO: figure out if we need the center of the bounding box for anything
-# center_x = x_low + ((x_high - x_low)/2)
-# center_y = y_low + ((y_high - y_low)/2)
+#     with open("updated-{0}.json".format(file_num), "w", encoding="utf-8") as updated_file:
+#         print('{"docs": [', file=updated_file)
+#         for record in tweet_data["docs"]:
+#             counter += 1
+#             if counter == chunk_size:
+#                 json.dump(record, updated_file)
+#                 updated_file.write('\n')
+#             else: 
+#                 json.dump(record, updated_file)
+#                 updated_file.write(",")
+#                 updated_file.write('\n')
+#         print(']}', file=updated_file)
 
 
 
-# note for this code: the geojson returned is missing the "type":"Feature"
-# field before "geometry", not sure why it is missing.
-# note also missing the "type":"Polygon" inside the geometry dictionary
-
-# with open("greater-melbourne-lga.geojson", "w") as greater_melbourne_file:
-#     print('{"type":"FeatureCollection, "features":[', file=greater_melbourne_file)
-#     for item in LGA_FEATURES_LIST:
-#         # this doesn't work, there is a key error because each item is a dictionary not a string
-#         # convert to string? 
-#         # print(item[0] + '"type":"Feature",' + item[1:], file=greater_melbourne_file)
-#         print(item, file=greater_melbourne_file)
-#     print("]}", file=greater_melbourne_file)
 
 
 
-# property_0 = gj["features"][0]["properties"]
-# property_0_LGA_NAME = gj["features"][91]["properties"]["LGA_NAME"]
-# print(property_0)
-# print(property_0_LGA_NAME)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
