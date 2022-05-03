@@ -1201,6 +1201,11 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@coreui/coreui@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@coreui/coreui/-/coreui-4.1.4.tgz#4c612783788b8774b5e82ab1712bf2e210666983"
+  integrity sha512-YuJ0VnSvrwlgB9b0f5V4SJm2pxe5UQajeP5VMV2fGnimOzDxPPnHK9w2DaTpSIubFYdVZPM+40WZ2wsn8+6XSQ==
+
 "@csstools/normalize.css@*":
   version "12.0.0"
   resolved "https://registry.npmjs.org/@csstools/normalize.css/-/normalize.css-12.0.0.tgz"
@@ -10248,7 +10253,7 @@ react-palm@^3.3.7, react-palm@^3.3.8:
     react-reconciler "^0.12.0"
     react-test-renderer "^16.4.2"
 
-react-popper@^2.2.4:
+react-popper@^2.2.4, react-popper@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-2.3.0.tgz#17891c620e1320dce318bad9fede46a5f71c70ba"
   integrity sha512-e1hj8lL3uM+sgSR4Lxzn5h1GxBlpa4CQz0XLF8kx4MDrDRWY0Ena4c97PUeSX9i5W3UAfDP0z0FXCTQkoXUl3Q==

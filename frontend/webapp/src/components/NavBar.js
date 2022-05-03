@@ -1,19 +1,36 @@
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 const NavBar = () => {
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href="/">Home</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link href="/distress">Distress</Nav.Link>
-          <Nav.Link href="/drug">Drug</Nav.Link>
-          <Nav.Link href="/family_violence">Family Violence</Nav.Link>
-          <Nav.Link href="/income">Income</Nav.Link>
-        </Nav>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <NavDropdown title="Scenario A" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/scenario_a_aurin">
+                Aurin
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/scenario_a_twitter">
+                Twitter
+              </NavDropdown.Item>
+            </NavDropdown>
+
+            <NavDropdown title="Scenario B" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="/scenario_b_aurin">
+                Aurin
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/scenario_b_twitter">
+                Twitter
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
+
 export default NavBar;

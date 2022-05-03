@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Distress from "./pages/Distress";
-import Drug from "./pages/Drug";
-import FamilyViolence from "./pages/FamilyViolence";
-import Income from "./pages/Income";
 import Home from "./pages/Home";
+import ScenarioAAurin from "./pages/ScenarioAAurin";
+import ScenarioBAurin from "./pages/ScenarioBAurin";
 
 function App() {
   return (
@@ -12,10 +10,9 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/distress" element={<Distress />} />
-        <Route path="/drug" element={<Drug />} />
-        <Route path="/family_violence" element={<FamilyViolence />} />
-        <Route path="/income" element={<Income />} />
+        <Route path="/scenario_a_aurin" element={<ScenarioAAurin />} />
+        <Route path="/scenario_b_aurin" element={<ScenarioBAurin />} />
+        {/* <Route path="/scenario_b" element={<ScenarioA />} /> */}
       </Routes>
     </Router>
   );

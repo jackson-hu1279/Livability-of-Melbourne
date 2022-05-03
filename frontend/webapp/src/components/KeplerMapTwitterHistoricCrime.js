@@ -5,7 +5,7 @@ import { taskMiddleware } from "react-palm/tasks";
 import { Provider, useDispatch } from "react-redux";
 import { KeplerGl, Redux } from "kepler.gl";
 import { addDataToMap } from "kepler.gl/actions";
-import data from "../data/testData/distress/distress_rate_kepler.json";
+import data from "../data/testData/crime/family_violence_kepler.json";
 import KeplerGlSchema from "kepler.gl/schemas";
 import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 
@@ -21,7 +21,7 @@ const reducers = (function createReducers(redux, keplerGl) {
 
 const store = createStore(reducers, {}, applyMiddleware(taskMiddleware));
 
-export default function KeplerMapDistress() {
+export default function KeplerMapHistoricCrime() {
   return (
     <Provider store={store}>
       <Map />
