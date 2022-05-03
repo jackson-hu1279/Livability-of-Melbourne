@@ -2,6 +2,7 @@ import tweepy
 import pickle
 import time
 import couchdb3
+from shapely.geometry import Point
 
 
 ### definitions
@@ -69,6 +70,9 @@ def crawler(query, tokens, tweets_each_turn, turns, client, db_name, db_name2):
             time.sleep(time_gap)
         
         count = count + 1
+
+    #add LGA tags
+    tweet_list = add_lga_tags('LGA_list.pkl', tweet_list)
 
     save_to_couchDB(client, tweet_list, db_name, db_name2)
     
@@ -145,6 +149,9 @@ def crawler_2(query, tokens, tweets_each_turn, turns, client, db_name):
         
         count = count + 1
 
+    #add LGA tags
+    tweet_list = add_lga_tags('LGA_list.pkl', tweet_list)
+
     save_to_couchDB_2(client, tweet_list, db_name)
     
     return next_page
@@ -187,3 +194,35 @@ def save_to_couchDB_2(client, tweet_data, db_name):
     
     print(str(count1) + " tweets(with geo) are successfully saved to database" + db_name)
     return
+
+
+
+def add_lga_tags(file_name, tweet_data):
+    """
+    Add LGA tags to tweets which have coordinates
+    file_name indicates the LGA lists stored as .pkl file
+    Add 2 attributes to tweet: LAG name, LGA code
+    """
+
+    inputs = open(file_name,'rb')
+    LGA_FEATURES_LIST = pickle.load(inputs)
+    inputs.close()
+
+    for tweet in tweet_data:
+        if(tweet['geo'] != None):
+            if('coordinates' in tweet['geo'].keys()):
+                coords = tweet['geo']['coordinates']
+                point = Point(coords["coordinates"])  
+                for j in range(len(LGA_FEATURES_LIST)):
+                    if LGA_FEATURES_LIST[j]["geometry"]["coordinates"][0].contains(point): # if true, add the LGA name and code to the tweet as a new key
+                        tweet["LGA_NAME"] = LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"]
+                        tweet["LGA_CODE"] = LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"]
+                        print("in LGA", LGA_FEATURES_LIST[j]["properties"]["LGA_NAME"], LGA_FEATURES_LIST[j]["properties"]["LGA_CODE"])
+                        print(tweet["LGA_NAME"])
+            
+                if "LGA_NAME" not in tweet:
+                    #print("not in LGA")
+                    tweet["LGA_NAME"] = "NO LGA"
+                    tweet["LGA_CODE"] = "NO LGA CODE"
+    
+    return tweet_data
