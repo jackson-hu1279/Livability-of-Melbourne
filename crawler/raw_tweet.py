@@ -2,6 +2,7 @@ import get_tweet as tw
 import couchdb3
 import tweepy
 import pickle
+import time
 from shapely.geometry import Point
 
 def main():
@@ -24,8 +25,8 @@ def main():
     ### Run
     if(client.up()):
         while(True): ## infinite loop
-            if(count == 0):
-                next_tokens = tw.crawler(query, BEARER_TOKEN, 50, 40, client, db_name, db_name2)
-                count = 1
-
-            next_tokens = tw.crawler(query, BEARER_TOKEN, 50, 5, client, db_name, db_name2)
+            try:
+                next_tokens = tw.crawler(query, BEARER_TOKEN, 50, 5, client, db_name, db_name2)
+            except Exception as ee:
+                print('exception occur:'+ str(ee))
+                time.sleep(900)
