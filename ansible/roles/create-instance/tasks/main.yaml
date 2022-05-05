@@ -34,6 +34,6 @@
 - name: Add host
   ansible.builtin.add_host:
     name: '{{ item.openstack.public_v4 }}'
-    groups: COMP90024
+    groups: MRC_NODES
   loop: '{{ os_instance.results }}'
   when: item.openstack is defined

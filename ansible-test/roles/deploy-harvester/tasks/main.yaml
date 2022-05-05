@@ -31,10 +31,6 @@
     name: harvester
     image: harvester
     state: started
-    ports:
-      - "4369:4369"
-      - "5984:5984"
-      - "9100:9100"
     env:
       SCENARIO: Raw
       PYTHONUNBUFFERED: "1"

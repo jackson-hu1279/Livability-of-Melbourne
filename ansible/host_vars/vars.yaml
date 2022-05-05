@@ -56,5 +56,7 @@ instances:
     volumes: data-vol-2
   - name: instance-3
     volumes: data-vol-3
+  - name: instance-4
+    volumes: data-vol-4
 
 
