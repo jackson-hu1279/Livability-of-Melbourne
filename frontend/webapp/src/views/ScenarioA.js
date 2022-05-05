@@ -18,6 +18,7 @@
 */
 import KeplerMapDrug from "components/KeplerMapDrug";
 import KeplerMapViolence from "components/KeplerMapViolence";
+import PieChartCrimeTwitter from "components/PieChartCrimeTwitter";
 import React from "react";
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
@@ -28,6 +29,29 @@ function ScenarioA() {
       <div className="content">
         <Row>
           <Col md="12">
+            <Card>
+              <CardHeader>
+                <center>
+                  <h5 className="title" centre>
+                    Pie Chart
+                  </h5>
+                </center>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>Pie Chart Twitter LGA</CardHeader>
+              <CardBody>
+                <div
+                  id="map"
+                  className="map"
+                  style={{ position: "relative", overflow: "hidden" }}
+                >
+                  <PieChartCrimeTwitter />
+                </div>
+              </CardBody>
+            </Card>
+
             <Card>
               <CardHeader>
                 <center>

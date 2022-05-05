@@ -5,7 +5,7 @@ import { taskMiddleware } from "react-palm/tasks";
 import { Provider, useDispatch } from "react-redux";
 import { KeplerGl, Redux } from "kepler.gl";
 import { addDataToMap } from "kepler.gl/actions";
-import data from "../data/testData/crime/drug_use_kepler.json";
+import data from "../data/testData/crime/kepler/drug_use_kepler.json";
 import KeplerGlSchema from "kepler.gl/schemas";
 import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 
