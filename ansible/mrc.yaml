@@ -8,7 +8,7 @@
     - role: create-security-group
     - role: create-instance
 
-- hosts: COMP90024
+- hosts: MRC_NODES
   vars_files:
     - host_vars/vars.yaml
   gather_facts: true
@@ -20,3 +20,4 @@
   - role: install-docker
   - role: init-couchdb
   - role: set-couchdb-cluster
+  - role: deploy-harvester

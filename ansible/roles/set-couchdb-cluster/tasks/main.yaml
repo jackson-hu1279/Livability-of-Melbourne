@@ -13,7 +13,7 @@
       Content-Type: "application/json"
     body_format: json
     body: "{\"action\": \"enable_cluster\", \"bind_address\": \"0.0.0.0\", \"username\":\"{{ couchdb_user }}\", \"password\": \"{{ couchdb_pass }}\", \"port\": \"5984\", \"remote_node\": \"{{ inventory_hostname }}\", \"node_count\": \"3\",\"remote_current_user\": \"{{ couchdb_user }}\", \"remote_current_password\":\"{{ couchdb_pass }}\"}"
-  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][0]
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][0] and inventory_hostname not in groups['MRC_NODES'][3]
 
 - name: Join other nodes
   uri:
@@ -27,7 +27,7 @@
       Content-Type: "application/json"
     body_format: json
     body: "{\"action\":\"add_node\",\"host\":\"{{ inventory_hostname }}\",\"port\":\"5984\",\"username\":\"{{ couchdb_user }}\",\"password\":\"{{ couchdb_pass }}\"}"
-  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][0]
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][0] and inventory_hostname not in groups['MRC_NODES'][3]
 
 - name: Complete cluster setup
   uri:

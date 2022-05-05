@@ -1,0 +1,56 @@
+---
+- name: Create build directory
+  become: yes
+  file:
+    path: "{{ build_directory }}"
+    state: directory
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
+- name: Copy files
+  become: yes
+  copy:
+    src: ../crawler/
+    dest: "{{ build_directory }}"
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
+- name: Build harvester container image
+  community.docker.docker_image:
+    name: "{{ harvester_image }}"
+    build:
+      path: "{{ build_directory }}"
+    source: build
+    state: present
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
+- name: Launch raw harvester
+  become: yes
+  community.docker.docker_container:
+    name: raw_harvester
+    image: "{{ harvester_image }}"
+    state: started
+    env:
+      SCENARIO: Raw
+      PYTHONUNBUFFERED: "1"
+  when: inventory_hostname in groups['MRC_NODES'][0]
+
+- name: Launch crime harvester
+  become: yes
+  community.docker.docker_container:
+    name: crime_harvester
+    image: "{{ harvester_image }}"
+    state: started
+    env:
+      SCENARIO: Crime
+      PYTHONUNBUFFERED: "1"
+  when: inventory_hostname in groups['MRC_NODES'][1]
+
+- name: Launch mental harvester
+  become: yes
+  community.docker.docker_container:
+    name: mental_harvester
+    image: "{{ harvester_image }}"
+    state: started
+    env:
+      SCENARIO: Mental
+      PYTHONUNBUFFERED: "1"
+  when: inventory_hostname in groups['MRC_NODES'][2]

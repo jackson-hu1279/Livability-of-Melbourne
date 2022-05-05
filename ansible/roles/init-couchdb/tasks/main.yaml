@@ -22,23 +22,31 @@
       COUCHDB_PASSWORD: "{{ couchdb_pass }}"
       COUCHDB_SECRET: "{{ couchdb_cookie }}"
       ERL_FLAGS: "-setcookie \"{{ couchdb_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
 
 # Ensure not overwrite the CouchDB config files
 - name: Copy CouchDB data to host
   become: yes
   ansible.builtin.command: "docker cp {{ couchdb_container }}:{{ couchdb_data_dir }} {{ host_data_volume }}"
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
 
 - name: Stop CouchDB container again
   become: yes
   community.docker.docker_container:
     name: "{{ couchdb_container}}"
     state: stopped
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
 
 - name: Run Docker container with volume mounted
   become: yes
   community.docker.docker_container:
     name: "{{ couchdb_container}}"
     state: started
+  when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
+
 
 
 

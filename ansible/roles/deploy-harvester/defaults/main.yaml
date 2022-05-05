@@ -1,0 +1,3 @@
+---
+build_directory: /harvester
+harvester_image: harvester
