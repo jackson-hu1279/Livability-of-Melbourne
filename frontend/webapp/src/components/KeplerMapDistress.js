@@ -1,5 +1,5 @@
 import React from "react";
-import keplerGlReducer from "kepler.gl/reducers";
+import { keplerGlReducer, uiStateUpdaters } from "kepler.gl/reducers";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { taskMiddleware } from "react-palm/tasks";
 import { Provider, useDispatch } from "react-redux";
@@ -9,9 +9,21 @@ import data from "../data/testData/distress/distress_rate_kepler.json";
 import KeplerGlSchema from "kepler.gl/schemas";
 import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
 
-const reducers = (function createReducers(redux, keplerGl) {
+const reducers = (function createReducers(Redux, KeplerGl) {
   const customizedKeplerGlReducer = keplerGlReducer.initialState({
-    uiState: { readOnly: true },
+    uiState: {
+      readOnly: true,
+      mapControls: {
+        ...uiStateUpdaters.DEFAULT_MAP_CONTROLS,
+        visibleLayers: {
+          show: false,
+        },
+        mapLegend: {
+          show: true,
+          active: true,
+        },
+      },
+    },
   });
   return combineReducers({
     // mount keplerGl reducer
@@ -38,7 +50,7 @@ function Map() {
   }, [dispatch]);
 
   return (
-    <div style={{ position: "absolute", width: "50%", height: "50%" }}>
+    <div style={{ position: "absolute", width: "100%", height: "100%" }}>
       <AutoSizer>
         {({ height, width }) => (
           <KeplerGl
