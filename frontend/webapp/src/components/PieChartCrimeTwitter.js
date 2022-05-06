@@ -1,4 +1,6 @@
 import { PieChart } from "react-minimal-pie-chart";
+import axios from "axios";
+axios.get("http://172.26.134.126:5984").then((json) => console.log(json));
 
 export default function PieChartCrimeTwitter() {
   return (

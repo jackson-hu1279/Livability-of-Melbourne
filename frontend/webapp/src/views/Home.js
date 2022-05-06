@@ -79,7 +79,7 @@ function Home() {
                     relevant keywords in Greater Melbourne.
                   </p>
                   <p className="blockquote blockquote">
-                    Keywords:abduction abuse, accident, arson, assassination,
+                    Keywords: abduction abuse, accident, arson, assassination,
                     assault, bigamy, blackmail ,bombing ,bribery, burglary
                     ,corruption, crime,cybercrime, domestic violence, drug,
                     embezzlement, espionage, family violence, felony, forgery,

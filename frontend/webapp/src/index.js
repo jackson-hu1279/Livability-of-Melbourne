@@ -25,13 +25,13 @@ import "assets/scss/paper-dashboard.scss?v=1.3.0";
 import "assets/demo/demo.css";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
-import AdminLayout from "layouts/Admin.js";
+import Dashboard from "layouts/CCC.js";
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect to="/admin/dashboard" />
+      <Route path="/CCC" render={(props) => <Dashboard {...props} />} />
+      <Redirect to="/CCC/home" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

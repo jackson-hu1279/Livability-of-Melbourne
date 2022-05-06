@@ -5,7 +5,9 @@
   "homepage": "",
   "dependencies": {
     "@babel/core": "7.14.2",
+    "axios": "^0.27.2",
     "bootstrap": "4.6.0",
+    "canvasjs": "^1.8.3",
     "chart.js": "3.2.1",
     "jquery": "3.6.0",
     "kepler.gl": "^2.5.5",
@@ -20,6 +22,8 @@
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "reactstrap": "8.9.0",
+    "realm-web": "^1.7.0",
+    "request": "^2.88.2",
     "styled-components": "^5.3.5"
   },
   "scripts": {

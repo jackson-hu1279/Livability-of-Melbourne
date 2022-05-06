@@ -56,7 +56,7 @@ function ScenarioA() {
               <CardHeader>
                 <center>
                   <h5 className="title" centre>
-                    Kepler Map Representation
+                    Map Representation
                   </h5>
                 </center>
               </CardHeader>
@@ -64,7 +64,7 @@ function ScenarioA() {
 
             <Card>
               <CardHeader>
-                Family Violence with Historic Twitter Data
+                <h6>Family Violence with Historic Crime Tweets</h6>
               </CardHeader>
               <CardBody>
                 <div
@@ -72,19 +72,31 @@ function ScenarioA() {
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
+                  <p>
+                    Family Violence data in each Greater Melbourne LGA collected
+                    from AURIN is plotted as a heatmap with historic crime
+                    tweets displays in a cluster format.
+                  </p>
                   <KeplerMapViolence />
                 </div>
               </CardBody>
             </Card>
 
             <Card>
-              <CardHeader>Drug use with Historic Twitter Data</CardHeader>
+              <CardHeader>
+                <h6>Drug use with Historic Crime Tweets</h6>
+              </CardHeader>
               <CardBody>
                 <div
                   id="map"
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
+                  <p>
+                    Drug use data in each Greater Melbourne LGA collected from
+                    AURIN is plotted as a heatmap with historic crime tweets
+                    displays in a cluster format.
+                  </p>
                   <KeplerMapDrug />
                 </div>
               </CardBody>

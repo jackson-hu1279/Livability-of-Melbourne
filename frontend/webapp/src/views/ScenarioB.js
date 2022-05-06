@@ -32,33 +32,47 @@ function ScenarioB() {
               <CardHeader>
                 <center>
                   <h5 className="title" centre>
-                    Kepler Map Representation
+                    Map Representation
                   </h5>
                 </center>
               </CardHeader>
             </Card>
 
             <Card>
-              <CardHeader>Distress Rate with Historic Twitter Data</CardHeader>
+              <CardHeader>
+                <h6>Distress Rate with Historic Mental Health Tweets</h6>
+              </CardHeader>
               <CardBody>
                 <div
                   id="map"
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
+                  <p>
+                    Distress rate data in each Greater Melbourne LGA collected
+                    from AURIN is plotted as a heatmap with historic mental
+                    health tweets displays in a cluster format.
+                  </p>
                   <KeplerMapDistress />
                 </div>
               </CardBody>
             </Card>
 
             <Card>
-              <CardHeader>Income with Historic Twitter Data</CardHeader>
+              <CardHeader>
+                <h6>Income with Historic Mental Health Tweets</h6>
+              </CardHeader>
               <CardBody>
                 <div
                   id="map"
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
+                  <p>
+                    Income data in each Greater Melbourne LGA collected from
+                    AURIN is plotted as a heatmap with historic mental health
+                    tweets displays in a cluster format.
+                  </p>
                   <KeplerMapIncome />
                 </div>
               </CardBody>
