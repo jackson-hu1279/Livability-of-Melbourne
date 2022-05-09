@@ -23,7 +23,7 @@ def reform_tweet(raw_tweet):
 
 def preprocess(raw_tweet, tweet_list):
     """
-    Process all tweets in one turn, remove tweets withou geo info
+    Process all tweets in one turn
     """
     for data in raw_tweet:
         tweet_list.append(reform_tweet(data))
