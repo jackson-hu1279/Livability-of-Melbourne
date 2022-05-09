@@ -17,10 +17,7 @@
 
 */
 import Home from "views/Home.js";
-import Notifications from "views/Notifications.js";
 import Icons from "views/Icons.js";
-import Typography from "views/Typography.js";
-import TableList from "views/Tables.js";
 import ScenarioA from "views/ScenarioA";
 import ScenarioB from "views/ScenarioB";
 
@@ -51,27 +48,6 @@ var routes = [
     name: "Icons",
     icon: "nc-icon nc-diamond",
     component: Icons,
-    layout: "/CCC",
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
-    component: Notifications,
-    layout: "/CCC",
-  },
-  {
-    path: "/tables",
-    name: "Table List",
-    icon: "nc-icon nc-tile-56",
-    component: TableList,
-    layout: "/CCC",
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "nc-icon nc-caps-small",
-    component: Typography,
     layout: "/CCC",
   },
 ];

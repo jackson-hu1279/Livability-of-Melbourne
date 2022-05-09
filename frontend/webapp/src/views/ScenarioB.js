@@ -32,6 +32,26 @@ function ScenarioB() {
               <CardHeader>
                 <center>
                   <h5 className="title" centre>
+                    Pie Chart
+                  </h5>
+                </center>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>Pie Chart Twitter LGA</CardHeader>
+              <CardBody>
+                <div
+                  id="map"
+                  className="map"
+                  style={{ position: "relative", overflow: "hidden" }}
+                ></div>
+              </CardBody>
+            </Card>
+            <Card>
+              <CardHeader>
+                <center>
+                  <h5 className="title" centre>
                     Map Representation
                   </h5>
                 </center>

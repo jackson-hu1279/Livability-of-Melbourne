@@ -16,9 +16,9 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import Diagram from "components/Diagram";
 import KeplerMapDrug from "components/KeplerMapDrug";
 import KeplerMapViolence from "components/KeplerMapViolence";
-import PieChartCrimeTwitter from "components/PieChartCrimeTwitter";
 import React from "react";
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
@@ -33,21 +33,25 @@ function ScenarioA() {
               <CardHeader>
                 <center>
                   <h5 className="title" centre>
-                    Pie Chart
+                    AURIN
                   </h5>
                 </center>
               </CardHeader>
             </Card>
 
             <Card>
-              <CardHeader>Pie Chart Twitter LGA</CardHeader>
+              <CardHeader>
+                <h6>
+                  Number of crime related tweets in each Local Government Area
+                </h6>
+              </CardHeader>
               <CardBody>
                 <div
                   id="map"
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
-                  <PieChartCrimeTwitter />
+                  <Diagram />
                 </div>
               </CardBody>
             </Card>
