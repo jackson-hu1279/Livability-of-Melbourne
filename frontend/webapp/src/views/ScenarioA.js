@@ -32,7 +32,7 @@ function ScenarioA() {
             <Card>
               <CardHeader>
                 <center>
-                  <h5 className="title" centre>
+                  <h5 className="title" centre="true">
                     AURIN
                   </h5>
                 </center>
@@ -59,7 +59,7 @@ function ScenarioA() {
             <Card>
               <CardHeader>
                 <center>
-                  <h5 className="title" centre>
+                  <h5 className="title" centre="true">
                     Map Representation
                   </h5>
                 </center>
