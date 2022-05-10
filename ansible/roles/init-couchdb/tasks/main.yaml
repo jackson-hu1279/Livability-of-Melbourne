@@ -44,7 +44,20 @@
   become: yes
   community.docker.docker_container:
     name: "{{ couchdb_container}}"
+    image: "{{ couchdb_image }}"
     state: started
+    ports:
+      - "4369:4369"
+      - "5984:5984"
+      - "9100:9100"
+    env:
+      NODENAME: "{{ ansible_host }}"
+      COUCHDB_USER: "{{ couchdb_user }}"
+      COUCHDB_PASSWORD: "{{ couchdb_pass }}"
+      COUCHDB_SECRET: "{{ couchdb_cookie }}"
+      ERL_FLAGS: "-setcookie \"{{ couchdb_cookie }}\" -name \"couchdb@{{ inventory_hostname }}\""
+    volumes:
+      - "data:/opt/couchdb/data"
   when: inventory_hostname in groups['MRC_NODES'] and inventory_hostname not in groups['MRC_NODES'][3]
 
 
