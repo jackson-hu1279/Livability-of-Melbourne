@@ -7,38 +7,23 @@ export default class BarChart extends React.Component {
   constructor(props) {
     super(props);
     var datas = [];
-    var data = props.data.data;
-    console.log(data);
+    var data = props.data;
     this.state = {
       title: props.title,
       data: data,
-      showData: datas,
+      points: datas,
     };
-    for (var i = 0; i < data.length; i++) {
-      console.log(data[i].lable);
-      datas.push({
-        label: data[i].x,
-        y: data[i].y,
-      });
-    }
-    console.log(this.state.showData);
-  }
 
-  UNSAFE_componentWillUpdate(nextProps, nextState) {
-    console.log(nextProps);
-    var data = nextProps.data.data;
     console.log(data);
-    this.state.title = nextProps.title;
-    this.state.data = data;
-    this.state.showData = [];
-
     for (var i = 0; i < data.length; i++) {
-      console.log(data[i].x);
-      this.state.showData.push({
-        label: data[i].x,
-        y: data[i].y,
+      console.log(data[i].key["LGA_NAME"]);
+      console.log(data[i].value);
+      datas.push({
+        label: data[i].key["LGA_NAME"],
+        y: data[i].value,
       });
     }
+    console.log(datas);
   }
 
   render() {
@@ -47,14 +32,14 @@ export default class BarChart extends React.Component {
         text: this.state.title,
       },
       axisX: {
-        valueFormatString: "#,###",
+        valueFormatString: "string",
       },
       data: [
         {
           type: "column",
-          xValueFormatString: "##",
-          yValueFormatString: "#,###",
-          dataPoints: this.state.showData,
+          xValueFormatString: "string",
+          yValueFormatString: "###",
+          dataPoints: this.state.points,
         },
       ],
     };

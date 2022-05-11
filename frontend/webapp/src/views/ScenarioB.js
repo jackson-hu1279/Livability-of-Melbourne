@@ -19,8 +19,12 @@
 import KeplerMapDistress from "components/KeplerMapDistress";
 import KeplerMapIncome from "components/KeplerMapIncome";
 import React from "react";
+import Diagram from "components/Diagram";
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
+
+const url =
+  "http://172.26.134.126:5984/mental_historical/_design/LGA_COUNT/_view/count-lga-name-code?reduce=true&group_level=1";
 
 function ScenarioB() {
   return (
@@ -31,27 +35,37 @@ function ScenarioB() {
             <Card>
               <CardHeader>
                 <center>
-                  <h5 className="title" centre>
-                    Pie Chart
+                  <h5 className="title" centre="true">
+                    Mental Health Tweets
                   </h5>
                 </center>
               </CardHeader>
             </Card>
 
             <Card>
-              <CardHeader>Pie Chart Twitter LGA</CardHeader>
+              <CardHeader>
+                <h6>
+                  Number of mental health related tweets in each Local
+                  Government Area
+                </h6>
+              </CardHeader>
               <CardBody>
                 <div
                   id="map"
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
-                ></div>
+                >
+                  <Diagram
+                    data={url}
+                    title={"No. of Mental Health Tweets in each LGA"}
+                  />
+                </div>
               </CardBody>
             </Card>
             <Card>
               <CardHeader>
                 <center>
-                  <h5 className="title" centre>
+                  <h5 className="title" centre="true">
                     Map Representation
                   </h5>
                 </center>
@@ -60,7 +74,7 @@ function ScenarioB() {
 
             <Card>
               <CardHeader>
-                <h6>Distress Rate with Historic Mental Health Tweets</h6>
+                <h6>Distress Rate with Mental Health Tweets</h6>
               </CardHeader>
               <CardBody>
                 <div
@@ -70,8 +84,8 @@ function ScenarioB() {
                 >
                   <p>
                     Distress rate data in each Greater Melbourne LGA collected
-                    from AURIN is plotted as a heatmap with historic mental
-                    health tweets displays in a cluster format.
+                    from AURIN is plotted as a heatmap with mental health tweets
+                    displays in a cluster format.
                   </p>
                   <KeplerMapDistress />
                 </div>
@@ -80,7 +94,7 @@ function ScenarioB() {
 
             <Card>
               <CardHeader>
-                <h6>Income with Historic Mental Health Tweets</h6>
+                <h6>Income with Mental Health Tweets</h6>
               </CardHeader>
               <CardBody>
                 <div
@@ -90,8 +104,8 @@ function ScenarioB() {
                 >
                   <p>
                     Income data in each Greater Melbourne LGA collected from
-                    AURIN is plotted as a heatmap with historic mental health
-                    tweets displays in a cluster format.
+                    AURIN is plotted as a heatmap with mental health tweets
+                    displays in a cluster format.
                   </p>
                   <KeplerMapIncome />
                 </div>

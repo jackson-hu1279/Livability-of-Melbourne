@@ -17,7 +17,6 @@
 
 */
 import Home from "views/Home.js";
-import Icons from "views/Icons.js";
 import ScenarioA from "views/ScenarioA";
 import ScenarioB from "views/ScenarioB";
 
@@ -41,13 +40,6 @@ var routes = [
     name: "Scenario B",
     icon: "nc-icon nc-credit-card",
     component: ScenarioB,
-    layout: "/CCC",
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-diamond",
-    component: Icons,
     layout: "/CCC",
   },
 ];

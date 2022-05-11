@@ -36,7 +36,7 @@ function ScenarioA() {
               <CardHeader>
                 <center>
                   <h5 className="title" centre="true">
-                    AURIN
+                    Crime Tweets
                   </h5>
                 </center>
               </CardHeader>
@@ -54,7 +54,10 @@ function ScenarioA() {
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
-                  <Diagram data={url} />
+                  <Diagram
+                    data={url}
+                    title={"No. of Crime Tweets  in each LGA"}
+                  />
                 </div>
               </CardBody>
             </Card>
@@ -71,7 +74,7 @@ function ScenarioA() {
 
             <Card>
               <CardHeader>
-                <h6>Family Violence with Historic Crime Tweets</h6>
+                <h6>Family Violence with Crime Tweets</h6>
               </CardHeader>
               <CardBody>
                 <div
@@ -81,8 +84,8 @@ function ScenarioA() {
                 >
                   <p>
                     Family Violence data in each Greater Melbourne LGA collected
-                    from AURIN is plotted as a heatmap with historic crime
-                    tweets displays in a cluster format.
+                    from AURIN is plotted as a heatmap with crime tweets
+                    displays in a cluster format.
                   </p>
                   <KeplerMapViolence />
                 </div>
@@ -91,7 +94,7 @@ function ScenarioA() {
 
             <Card>
               <CardHeader>
-                <h6>Drug use with Historic Crime Tweets</h6>
+                <h6>Drug use with Crime Tweets</h6>
               </CardHeader>
               <CardBody>
                 <div
@@ -101,8 +104,8 @@ function ScenarioA() {
                 >
                   <p>
                     Drug use data in each Greater Melbourne LGA collected from
-                    AURIN is plotted as a heatmap with historic crime tweets
-                    displays in a cluster format.
+                    AURIN is plotted as a heatmap with crime tweets displays in
+                    a cluster format.
                   </p>
                   <KeplerMapDrug />
                 </div>
