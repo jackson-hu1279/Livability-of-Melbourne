@@ -23,6 +23,9 @@ import React from "react";
 // reactstrap components
 import { Card, CardHeader, CardBody, Row, Col } from "reactstrap";
 
+const url =
+  "http://172.26.134.126:5984/crime_historical/_design/LGA_COUNT/_view/count-lga-name-code?reduce=true&group_level=1";
+
 function ScenarioA() {
   return (
     <>
@@ -51,7 +54,7 @@ function ScenarioA() {
                   className="map"
                   style={{ position: "relative", overflow: "hidden" }}
                 >
-                  <Diagram />
+                  <Diagram data={url} />
                 </div>
               </CardBody>
             </Card>

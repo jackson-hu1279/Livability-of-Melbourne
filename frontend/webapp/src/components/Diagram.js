@@ -1,5 +1,5 @@
 import React from "react";
-import fetch from "fetch-with-proxy";
+import fetch from "node-fetch";
 import crime_data from "../data/testData/historicTwitter/crime-tweet-count.json";
 import mental_data from "../data/testData/historicTwitter/mental-tweet-count.json";
 
@@ -13,21 +13,33 @@ export default class Diagram extends React.Component {
 
     this.state = {
       isLoading: true,
+      url: props.data,
       pieChartData: pieChartData,
       barChartData: barChartData,
     };
   }
 
   UNSAFE_componentWillUpdate() {
-    fetch(
-      "http://172.26.134.126:5984/crime_historical/_design/LGA_COUNT/_view/COUNT?reduce=true&group_level=1",
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    )
+    console.log(this.state.url);
+    fetch(this.state.url, {
+      headers: new Headers({
+        Authorization: "Basic " + btoa("admin:admin"),
+        "Content-Type": "application/json",
+      }),
+    })
+      .then(function (res) {
+        if (res.status >= 400) {
+          alert("Bad response from server: " + res.status);
+          throw new Error("Bad response from server");
+        }
+        return res.text();
+      })
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          isLoading: false,
+        });
+      })
       .then(
         (res) => {
           if (res.ok) {
@@ -35,7 +47,7 @@ export default class Diagram extends React.Component {
           } else {
             console.log("error");
           }
-          console.log(res.json());
+          console.log(res.text());
         },
         (err) => {
           console.log(err);
@@ -52,9 +64,26 @@ export default class Diagram extends React.Component {
   }
 
   componentDidMount() {
-    fetch(
-      "http://172.26.134.126:5984/crime_historical/_design/LGA_COUNT/_view/COUNT?reduce=true&group_level=1"
-    )
+    console.log(this.state.url);
+    fetch(this.state.url, {
+      headers: new Headers({
+        Authorization: "Basic " + btoa("admin:admin"),
+        "Content-Type": "application/json",
+      }),
+    })
+      .then(function (res) {
+        if (res.status >= 400) {
+          alert("Bad response from server: " + res.status);
+          throw new Error("Bad response from server");
+        }
+        return res.text();
+      })
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          isLoading: false,
+        });
+      })
       .then(
         (res) => {
           if (res.ok) {

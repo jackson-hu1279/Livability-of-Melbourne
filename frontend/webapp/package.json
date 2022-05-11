@@ -10,6 +10,7 @@
     "canvasjs": "^1.8.3",
     "chart.js": "3.2.1",
     "fetch-with-proxy": "^3.0.1",
+    "fork-ts-checker-webpack-plugin": "^7.2.11",
     "jquery": "3.6.0",
     "kepler.gl": "^2.5.5",
     "nano": "^10.0.0",
@@ -29,6 +30,7 @@
     "realm-web": "^1.7.0",
     "request": "^2.88.2",
     "rsuite": "^5.11.0",
+    "schema-utils": "^4.0.0",
     "styled-components": "^5.3.5"
   },
   "scripts": {
@@ -52,8 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-    , "proxy" : "http://172.26.134.126"
   },
+  "proxy": "http://172.26.134.126:5984",
   "optionalDependencies": {
     "typescript": "4.2.4"
   },
