@@ -1,0 +1,65 @@
+{"rows":[
+
+    {"key":{"LGA_NAME":"Banyule City","LGA_CODE":20660},"value":67},
+    
+    {"key":{"LGA_NAME":"Bayside City","LGA_CODE":20910},"value":74},
+    
+    {"key":{"LGA_NAME":"Boroondara City","LGA_CODE":21110},"value":80},
+    
+    {"key":{"LGA_NAME":"Brimbank City","LGA_CODE":21180},"value":150},
+    
+    {"key":{"LGA_NAME":"Cardinia Shire","LGA_CODE":21450},"value":8},
+    
+    {"key":{"LGA_NAME":"Casey City","LGA_CODE":21610},"value":29},
+    
+    {"key":{"LGA_NAME":"Darebin City","LGA_CODE":21890},"value":130},
+    
+    {"key":{"LGA_NAME":"Frankston City","LGA_CODE":22170},"value":54},
+    
+    {"key":{"LGA_NAME":"Glen Eira City","LGA_CODE":22310},"value":108},
+    
+    {"key":{"LGA_NAME":"Greater Dandenong City","LGA_CODE":22670},"value":43},
+    
+    {"key":{"LGA_NAME":"Hobsons Bay City","LGA_CODE":23110},"value":61},
+    
+    {"key":{"LGA_NAME":"Hume City","LGA_CODE":23270},"value":107},
+    
+    {"key":{"LGA_NAME":"Kingston City","LGA_CODE":23430},"value":94},
+    
+    {"key":{"LGA_NAME":"Knox City","LGA_CODE":23670},"value":61},
+    
+    {"key":{"LGA_NAME":"Manningham City","LGA_CODE":24210},"value":36},
+    
+    {"key":{"LGA_NAME":"Maribyrnong City","LGA_CODE":24330},"value":93},
+    
+    {"key":{"LGA_NAME":"Maroondah City","LGA_CODE":24410},"value":46},
+    
+    {"key":{"LGA_NAME":"Melbourne City","LGA_CODE":24600},"value":354},
+    
+    {"key":{"LGA_NAME":"Melton City","LGA_CODE":24650},"value":40},
+    
+    {"key":{"LGA_NAME":"Monash City","LGA_CODE":24970},"value":96},
+    
+    {"key":{"LGA_NAME":"Moonee Valley City","LGA_CODE":25060},"value":79},
+    
+    {"key":{"LGA_NAME":"Moreland City","LGA_CODE":25250},"value":137},
+    
+    {"key":{"LGA_NAME":"Mornington Peninsula Shire","LGA_CODE":25340},"value":4},
+    
+    {"key":{"LGA_NAME":"Nillumbik Shire","LGA_CODE":25710},"value":18},
+    
+    {"key":{"LGA_NAME":"Port Phillip City","LGA_CODE":25900},"value":140},
+    
+    {"key":{"LGA_NAME":"Stonnington City","LGA_CODE":26350},"value":122},
+    
+    {"key":{"LGA_NAME":"Whitehorse City","LGA_CODE":26980},"value":76},
+    
+    {"key":{"LGA_NAME":"Whittlesea City","LGA_CODE":27070},"value":71},
+    
+    {"key":{"LGA_NAME":"Wyndham City","LGA_CODE":27260},"value":88},
+    
+    {"key":{"LGA_NAME":"Yarra City","LGA_CODE":27350},"value":113},
+    
+    {"key":{"LGA_NAME":"Yarra Ranges Shire","LGA_CODE":27450},"value":19}
+    
+    ]}
