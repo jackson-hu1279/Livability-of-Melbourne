@@ -1,0 +1,24 @@
+---
+- name: Create build directory
+  become: yes
+  file:
+    path: "{{ build_directory }}"
+    state: directory
+  when: inventory_hostname in groups['MRC_NODES'][3]
+
+- name: Copy source files
+  become: yes
+  copy:
+    src: ../frontend/webapp/
+    dest: "{{ build_directory }}"
+  when: inventory_hostname in groups['MRC_NODES'][3]
+
+- name: Build harvester container image
+  community.docker.docker_image:
+    name: "{{ frontend_image }}"
+    build:
+      path: "{{ build_directory }}"
+    source: build
+    state: present
+  when: inventory_hostname in groups['MRC_NODES'][3]
+

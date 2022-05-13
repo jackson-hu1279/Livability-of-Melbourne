@@ -21,3 +21,4 @@
   - role: init-couchdb
   - role: set-couchdb-cluster
   - role: deploy-harvester
+  - role: deploy-frontend

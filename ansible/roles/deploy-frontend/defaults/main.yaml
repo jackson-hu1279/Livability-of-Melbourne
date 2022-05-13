@@ -1,0 +1,3 @@
+---
+build_directory: /frontend
+frontend_image: frontend
