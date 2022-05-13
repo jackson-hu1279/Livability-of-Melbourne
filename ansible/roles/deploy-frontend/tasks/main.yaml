@@ -13,7 +13,7 @@
     dest: "{{ build_directory }}"
   when: inventory_hostname in groups['MRC_NODES'][3]
 
-- name: Build harvester container image
+- name: Build frontend container image
   community.docker.docker_image:
     name: "{{ frontend_image }}"
     build:

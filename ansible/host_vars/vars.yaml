@@ -47,7 +47,7 @@ security_groups:
     port_range_min: 9100
     port_range_max: 9100
     remote_ip_prefix: 0.0.0.0/0
-  - name: couch3
+  - name: frontend
     description: "Security group for Frontend"
     protocol: tcp
     port_range_min: 3000
