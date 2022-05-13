@@ -22,3 +22,12 @@
     state: present
   when: inventory_hostname in groups['MRC_NODES'][3]
 
+- name: Launch frontend
+  become: yes
+  community.docker.docker_container:
+    name: frontend
+    image: "{{ frontend_image }}"
+    state: started
+    ports:
+      - "3000:3000"
+  when: inventory_hostname in groups['MRC_NODES'][3]
