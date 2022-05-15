@@ -28,19 +28,24 @@ import time
 from shapely.geometry import Point
 
 def main():
+    """
+    This function is used as a template to run a tweet harvester instance
+    To run a tweet harvester instance, simply modify information in this file, do not change other files.
+    You can reate as many instances as you want from this template if you have enough toekns.
+    """
     #### Set up
     BEARER_TOKEN = ["AAAAAAAAAAAAAAAAAAAAALWBbQEAAAAA%2FbQ0tpIE3uy14yUmYU0AiocoH6c%3DDkX3Fl2TdMFgRBCivYCSMajfqglkm8DkyylcAXkUFFceAIOBRB"]
 
 
-    query = 'Melbourne OR #Melbourne lang:en'
+    query = 'Melbourne OR #Melbourne lang:en'  # put your serach query here
     query2 = '#Melbourne lang:en'
 
-    client = couchdb3.Server(
+    client = couchdb3.Server(            # put the couchDB server information here
         "http://172.26.132.196:5984",
         user="admin",
         password="admin"
     )
-    db_name = "raw_tweets"
+    db_name = "raw_tweets"   #couchDB database name
     db_name2 = "geo_tweets"
 
     count = 0
