@@ -1,3 +1,25 @@
+# ----------------------------------------------
+# --------
+#
+# Cluster and Cloud Computing Assignment 2 - Team 53
+# 
+# Authors: 
+# - Chi Yin Wong (Student ID: 836872)
+# - Kaiquan Lin (Student ID: 1147233)
+# - Renkai Liao (Student ID: 1141584)
+# - Renwei Hu (Student ID: 1067974)
+# - Siwat Chairattanamanokorn (Student ID: 1338152)
+#
+# Author of this file:
+# - Renkai Liao (Student ID: 1141584)
+#
+# Location:
+# - China
+#
+# --------
+# ----------------------------------------------
+
+
 import get_tweet as tw
 import couchdb3
 import tweepy
