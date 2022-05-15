@@ -1,8 +1,26 @@
+# ----------------------------------------------
+# --------
+#
+# Cluster and Cloud Computing Assignment 2 - Team 53
+# 
+# Authors: 
+# - Chi Yin Wong (Student ID: 836872)
+# - Kaiquan Lin (Student ID: 1147233)
+# - Renkai Liao (Student ID: 1141584)
+# - Renwei Hu (Student ID: 1067974)
+# - Siwat Chairattanamanokorn (Student ID: 1338152)
+#
+# Author of this file:
+# - Chi Yin Wong (Student ID: 836872)
+#
+# Location:
+# - Melbourne
+#
+# --------
+# ----------------------------------------------
+
 import json
 
-# TODO: try to filter out all the keys except "doc" first
-# TODO: then we try and filter out all the keys in "doc" except _id, _rev, author_id, text, created_at, coordinates, geo
-# TODO: then filter through the tweet["docs"]["doc"]["text"] and search for the keywords 
 keywords_crime = [
     "abduct", "abuse", "abusive", "arson", "assassin", "assault", "bigamy", "blackmail", "bombing", "bribe", "burglar", 
     "corrupt", "crime", "cybercrime", "cyber crime", "domestic violence", "drug", "embezzle", "espionage", "family violence", 
@@ -12,6 +30,7 @@ keywords_crime = [
     "smuggling", "terrorism", "theft", "traffick", "transgression", "trespass", "vandalism", "vandalize", "vandalise",
     "voyeurism", "violate", "violation"
     ]
+
 keywords_health =[
     "anxiety", "anxious", "craziness", "delusion", "delude", "depress", "disturbed mind", "dying", "death",
     "emotional disorder", "emotional instability", "exhaust", "hallucinate", "hallucinating", "hallucination",
@@ -20,8 +39,7 @@ keywords_health =[
     "suicidal", "suiciding"
     ]
 
-
-allowed_keys = ["_id", "_rev", "text", "created_at", "coordinates", "geo"]
+allowed_keys = ["_id", "text", "created_at", "coordinates", "geo"]
 
 # i = 0
 with open('twitter-melb.json', 'r', encoding='utf-8') as unfiltered_file:
