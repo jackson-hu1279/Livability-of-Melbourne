@@ -28,7 +28,7 @@ https://youtube.com/playlist?list=PLNH1Fhe-gYxM0mh9OAEuU9f57RHeB2Llb
 - Tweepy
 - Twitter API
 
-## Contributors ✨
+## Contributors
 
 Renwei Hu (Student ID: 1067974) - renweih@student.unimelb.edu.au
 
@@ -57,8 +57,6 @@ Kaiquan Lin (Student ID: 1147233) - kaiquanl@student.unimelb.edu.au
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## Contact Emails
 
 ## Folder Structure
 ```
