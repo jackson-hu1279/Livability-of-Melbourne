@@ -30,15 +30,13 @@ https://youtube.com/playlist?list=PLNH1Fhe-gYxM0mh9OAEuU9f57RHeB2Llb
 
 ## Contributors
 
-Renwei Hu (Student ID: 1067974) - renweih@student.unimelb.edu.au
-
-Siwat Chairattanamanokorn (Student ID: 1338152) - siwat.chairattanamanokorn@student.unimelb.edu.au
-
-Renkai Liao (Student ID: 1141584) - renkai@student.unimelb.edu.au
-
-Chi Yin Wong (Student ID: 836872) - chiw2@student.unimelb.edu.au
-
-Kaiquan Lin (Student ID: 1147233) - kaiquanl@student.unimelb.edu.au
+| Name | Student ID | Contact |
+| :---                      |     :---    | :---                                              |
+| Renwei Hu                 | 1067974     |  renweih@student.unimelb.edu.au                   |
+| Siwat Chairattanamanokorn | 1338152     |  siwat.chairattanamanokorn@student.unimelb.edu.au |
+| Renkai Liao               | 1141584     |  renkai@student.unimelb.edu.au                    |
+| Chi Yin Wong              | 836872      |  chiw2@student.unimelb.edu.au                     |
+| Kaiquan Lin               | 1147233     |  kaiquanl@student.unimelb.edu.au                  |
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
