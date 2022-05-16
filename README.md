@@ -1,8 +1,8 @@
 # Liveability of Melbourne
-COMP90024 Cluster and Cloud Computing Assignment 2 - TEAM 53
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 ![GitHub repo size](https://img.shields.io/github/repo-size/jackson-hu1279/Livability-of-Melbourne)
 ![GitHub](https://img.shields.io/github/license/jackson-hu1279/Livability-of-Melbourne)
+COMP90024 Cluster and Cloud Computing Assignment 2 - TEAM 53
 
  
 ## Overview
