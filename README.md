@@ -90,7 +90,3 @@ Kaiquan Lin (Student ID: 1147233) - kaiquanl@student.unimelb.edu.au
 - `adding-LGA` - Python scripts to attach LGA code/name
 - `import-historic-tweets-couchdb` - Scripts to import historical data
 - `keyword-list` - contains list of keywords for scenarios
-
-
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
