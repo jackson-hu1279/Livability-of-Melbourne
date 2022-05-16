@@ -4,15 +4,46 @@
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 COMP90024 Cluster and Cloud Computing Project 2 - TEAM 53
  
-Overview
+## Overview
 
-Team Memebr 
+## Team Memebr 
 
-Contact Emails
+## Contact Emails
 
-Contribution
+## Contribution
 
-Folder Structure
+## Folder Structure
+```
+.
+├── adding-LGA
+├── ansible
+│   ├── host_vars
+│   └── roles
+│       ├── common
+│       ├── create-instance
+│       ├── create-security-group
+│       ├── create-volume
+│       ├── deploy-frontend
+│       ├── deploy-harvester
+│       ├── init-couchdb
+│       ├── install-docker
+│       ├── mount-volumes
+│       └── set-couchdb-cluster
+├── crawler
+├── frontend
+│   └── webapp
+│       ├── public
+│       └── src
+├── import-historic-tweets-couchdb
+└── keyword-list
+```
+### Directories:
+- `ansible` - Ansible scripts
+- `crawler` - Twitter harvester Python scripts
+- `frontend` - Frontend React application
+- `adding-LGA` - Python scripts to attach LGA code/name
+- `import-historic-tweets-couchdb` - Scripts to import historical data
+- `keyword-list` - contains list of keywords for scenarios
 
 ## Contributors ✨
 
