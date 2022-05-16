@@ -6,17 +6,18 @@
 
 COMP90024 Cluster and Cloud Computing Assignment 2 - TEAM 53
 
- 
-## Overview
-This is the git repository for COMP90024 Assignment 2 Team 53. The purpose of this assignment is to develop a cloud based solution to explore aspects of the livability of Melbourne through a set of livability indicators by developing scenarios for these indicators and analysing the scenarios based on real time tweet data. In this project, we focused on the neighbourhood and health indicators, specifically focusing on the crime and mental health aspect in Greater Melbourne. 
+An Analysis of **Crimes** and **Mental Health** in Local Government Authorities Based on Tweet Data
 
-## Video
+## Overview
+This is the git repository for COMP90024 Assignment 2 Team 53. The purpose of this assignment is to develop a cloud based solution to explore aspects of the livability of Melbourne through a set of livability indicators by developing scenarios for these indicators and analysing the scenarios based on real time tweet data. In this project, we focused on the neighbourhood and health indicators, specifically focusing on the **crime** and **mental health** aspect in Greater Melbourne. 
+
+## Videos
 https://youtube.com/playlist?list=PLNH1Fhe-gYxM0mh9OAEuU9f57RHeB2Llb
 
 ## Report
 - [Project Report](./CCC2022-Team53-Report.pdf)
 
-## Software Tool
+## Software Tools
 - Ansible
 - CouchDB
 - Docker
